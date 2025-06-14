@@ -89,7 +89,7 @@ function aawp_pcbuild_display_parts_wired_network($atts) {
             </div>
             <div class="filter-group" style="margin-bottom: 20px; margin-top:20px;">
                 <div class="filter-header">
-                    <strong>SELLER RATING</strong>
+                    <strong>RATING</strong>
                     <button class="filter-toggle">−</button>
                 </div>
                 <div class="filter-options" id="rating-filter">
@@ -98,69 +98,15 @@ function aawp_pcbuild_display_parts_wired_network($atts) {
             </div>
             <div class="filter-group" style="margin-bottom: 20px; margin-top:20px;">
                 <div class="filter-header">
-                    <strong>CORE COUNT</strong>
+                    <strong>INTERFACE</strong>
                     <button class="filter-toggle">−</button>
                 </div>
-                <div class="filter-options" id="core-filter" style="display: block;">
-                    <div id="core-slider" style="margin-top: 15px;"></div>
-                    <div style="display: flex; justify-content: space-between; font-size: 14px; margin-top: 6px;">
-                        <span id="core-min-label">0</span>
-                        <span id="core-max-label">0</span>
-                    </div>
+                <div class="filter-options" id="socket-filter">
+                    <!-- Filters will be injected here -->
                 </div>
             </div>
-            <div class="filter-group" style="margin-bottom: 20px; margin-top:20px;">
-                <div class="filter-header">
-                    <strong>BASE CLOCK</strong>
-                    <button class="filter-toggle">−</button>
-                </div>
-                <div class="filter-options" id="base-clock-filter" style="display: block;">
-                    <div id="base-clock-slider" style="margin-top: 15px;"></div>
-                    <div style="display: flex; justify-content: space-between; font-size: 14px; margin-top: 6px;">
-                        <span id="base-clock-min-label">0</span>
-                        <span id="base-clock-max-label">0</span>
-                    </div>
-                </div>
-            </div>
-            <div class="filter-group" style="margin-bottom: 20px; margin-top:20px;">
-                <div class="filter-header">
-                    <strong>BOOST CLOCK</strong>
-                    <button class="filter-toggle">−</button>
-                </div>
-                <div class="filter-options" id="boost-clock-filter" style="display: block;">
-                    <div id="boost-clock-slider" style="margin-top: 15px;"></div>
-                    <div style="display: flex; justify-content: space-between; font-size: 14px; margin-top: 6px;">
-                        <span id="boost-clock-min-label">0</span>
-                        <span id="boost-clock-max-label">0</span>
-                    </div>
-                </div>
-            </div>
-            <div class="filter-group" style="margin-bottom: 20px; margin-top:20px;">
-                <div class="filter-header">
-                    <strong>MICROARCHITECTURE</strong>
-                    <button class="filter-toggle">−</button>
-                </div>
-                <div class="filter-options" id="microarchitecture-filter"
-                    style="display: block; flex-direction: column; gap: 4px; margin-top: 10px;">
-                    <!-- Dynamically generated checkboxes including "All" -->
-                </div>
-            </div>
-            <div class="filter-group" style="margin-bottom: 20px; margin-top:20px;">
-                <div class="filter-header">
-                    <strong>SOCKET</strong>
-                    <button class="filter-toggle">−</button>
-                </div>
-                <div class="filter-options" id="socket-filter" style="display: block;"></div>
-            </div>
-            <div class="filter-group" style="margin-bottom: 20px; margin-top: 20px;">
-                <div class="filter-header">
-                    <strong>SERIES</strong>
-                    <button class="filter-toggle">−</button>
-                </div>
-                <div class="filter-options" id="series-filter" style="display: block;">
-                    <!-- Filter options will be dynamically populated here -->
-                </div>
-            </div>
+
+
 
         </div>
 
