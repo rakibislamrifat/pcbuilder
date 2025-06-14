@@ -1,0 +1,1702 @@
+.hidden {
+  display: none;
+}
+
+#buildOverview {
+  position: relative;
+  padding: 50px 0px;
+  background-color: var(--gray3);
+  background-size: 100% 100%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  color: var(--alabaster);
+}
+#buildOverview #component_modal {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #000;
+  z-index: 9999;
+}
+#buildOverview #component_modal .cancel {
+  background-color: red;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 24px;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#buildOverview .partsHeader {
+  width: 100%;
+  height: -moz-max-content;
+  height: max-content;
+  background-color: var(--gray2);
+}
+#buildOverview .partsHeader h3 {
+  font-size: 36px;
+  font-family: var(--BebasNeue);
+  color: var(--alabaster);
+  text-align: center;
+}
+#buildOverview .partsHeader .navNtab {
+  width: 100%;
+}
+#buildOverview .partsHeader .navNtab ol {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  align-items: center;
+  justify-content: center;
+}
+#buildOverview .partsHeader .navNtab ol li {
+  margin: 0;
+  padding: 0;
+}
+#buildOverview .partsHeader .navNtab ol li .tab-btn {
+  padding: 10px 20px;
+  border: none;
+  background: var(--gray2);
+  color: white;
+  cursor: pointer;
+}
+#buildOverview .partsHeader .navNtab ol li .tab-btn.active {
+  background: var(--gray3);
+}
+#buildOverview .container {
+  width: 100%;
+  max-width: 90%;
+  margin: 0 auto;
+}
+#buildOverview .container .productControler {
+  width: 100%;
+  margin-top: 50px;
+  padding-top: 10px;
+  background-color: var(--gray2);
+  border-radius: 10px;
+}
+#buildOverview .container .productControler .urlWarpper .urlbox {
+  width: 98%;
+  margin: 0 auto;
+  background-color: var(--gray3);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  padding-top: 8px;
+  gap: 15px;
+}
+#buildOverview .container .productControler .urlWarpper .urlbox input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: var(--alabaster);
+  padding-bottom: 5px;
+  color: var(--primary);
+}
+#buildOverview .container .productControler .urlWarpper .markUpbox {
+  width: 100%;
+  padding: 10px;
+  display: flex;
+}
+#buildOverview .container .productControler .urlWarpper .markUpbox .markUpIcon {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+#buildOverview .container .productControler .urlWarpper .markUpbox .markUpIcon span {
+  cursor: pointer;
+}
+#buildOverview .container .productControler .urlWarpper .markUpbox .markupBtn {
+  width: 50%;
+  display: flex;
+  gap: 20px;
+}
+#buildOverview .container .productControler .urlWarpper .markUpbox .markupBtn .divASbtn {
+  width: -moz-max-content;
+  width: max-content;
+  border: 1px solid var(--gray3);
+  padding: 5px 10px;
+  display: flex;
+  gap: 10px;
+}
+#buildOverview .container .productControler .urlWarpper .markUpbox .markupBtn .divASbtn:hover {
+  cursor: pointer;
+  border: 1px solid var(--primary);
+}
+#buildOverview .container .productControler .urlWarpper .markUpbox .markupBtn .divASbtn:hover :nth-child(2) {
+  color: var(--primary);
+  text-decoration: underline;
+}
+#buildOverview .container .productControler .CompitibleNotes {
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  overflow: hidden;
+}
+#buildOverview .container .productControler .CompitibleNotes .greenSection {
+  width: 100%;
+  background-color: var(--primary);
+  display: flex;
+  padding: 10px;
+  gap: 15px;
+}
+#buildOverview .container .productControler .CompitibleNotes .skySection {
+  width: 100%;
+  background-color: #236bd8;
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  padding: 5px 15px;
+}
+#buildOverview .container .productControler .CompitibleNotes .skySection a {
+  color: var(--alabaster);
+}
+#buildOverview .container .productControler .CompitibleNotes .skySection a:hover {
+  color: var(--primary);
+  text-decoration: underline;
+}
+#buildOverview .container .tab_Content_Warpper .tab-content {
+  display: none;
+  padding: 20px;
+  width: 100%;
+}
+#buildOverview .container .tab_Content_Warpper .tab-content .cardWarpper {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+#buildOverview .container .tab_Content_Warpper .tab-content .cardWarpper .row {
+  width: 100%;
+  display: flex;
+  gap: 20px;
+  border-bottom: 1px solid gray;
+}
+#buildOverview .container .tab_Content_Warpper .tab-content .cardWarpper .row .card {
+  width: 20%;
+  padding: 10px 0;
+  flex: 1;
+}
+#buildOverview .container .tab_Content_Warpper .tab-content .cardWarpper .row .card .rowHeading {
+  font-size: 14px;
+  font-weight: 300;
+  color: gray;
+}
+#buildOverview .container .tab_Content_Warpper .tab-content .cardWarpper .row .card .componentName {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--primary);
+}
+#buildOverview .container .tab_Content_Warpper .tab-content .cardWarpper .row .card .selectionBTN {
+  padding: 0 10px 5px 10px;
+  border-radius: 5px;
+  background-color: var(--edward);
+  color: #fff;
+}
+#buildOverview .container .tab_Content_Warpper .tab-content .cardWarpper .row .card .selectionBTN:hover {
+  background-color: var(--primary);
+  color: var(--alabaster);
+}
+#buildOverview .container .tab_Content_Warpper .tab-content .cardWarpper .row .selection {
+  flex-grow: 3;
+}
+#buildOverview .container .tab_Content_Warpper .tab-content .cardWarpper .row:nth-child(2) {
+  flex-grow: 1;
+}
+#buildOverview .container .tab_Content_Warpper .tab-content .cardWarpper .componentCard {
+  width: 250px;
+  height: 250px;
+  border: 1px solid gray;
+  background-color: rgba(3, 173, 125, 0.1921568627);
+  border-radius: 10px;
+  transition: 0.3s all linear;
+  cursor: pointer;
+}
+#buildOverview .container .tab_Content_Warpper .tab-content .cardWarpper .componentCard:hover {
+  background-color: rgba(5, 255, 184, 0.5215686275);
+}
+#buildOverview .container .tab_Content_Warpper .tab-content .cardContiner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+#buildOverview .container .tab_Content_Warpper .tab-content .cardContiner .componentCard {
+  width: -moz-max-content;
+  width: max-content;
+  border: 1px solid #25AC94;
+  background-image: url("../image/cardBg.png");
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: 40% 60%;
+  border-radius: 10px;
+  transition: 0.3s all linear;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 35px 25px;
+  text-align: center;
+}
+#buildOverview .container .tab_Content_Warpper .tab-content .cardContiner .componentCard:hover {
+  background-color: rgba(5, 255, 184, 0.5215686275);
+}
+#buildOverview .container .tab_Content_Warpper .tab-content .cardContiner .componentCard h3 {
+  font-size: 36px;
+  font-family: var(--BebasNeue);
+}
+#buildOverview .container .tab_Content_Warpper .tab-content .cardContiner .componentCard h5 {
+  font-size: 20px;
+}
+#buildOverview .container .tab_Content_Warpper .tab-content .cardContiner .componentCard .editBox {
+  margin-top: 10px;
+}
+#buildOverview .container .tab_Content_Warpper .tab-content.active {
+  display: block;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 480px) {
+  header nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+  }
+  header nav .menu {
+    display: none;
+  }
+  header nav .smMenu {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  header nav .smMenu span {
+    cursor: pointer;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide {
+    padding: 10px;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide {
+    width: 100%;
+    height: -moz-max-content;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    padding-top: 50px;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerText {
+    width: 100%;
+    order: 2;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerText h1 {
+    font-size: 18vw;
+    text-align: center;
+    line-height: 1;
+    text-transform: uppercase;
+    color: var(--primary);
+    font-family: Bebas Neue;
+    max-width: 100%;
+    letter-spacing: 5px;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerText h1 span {
+    font-family: Bebas Neue;
+    color: var(--alabaster);
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerText .btnwarpper {
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 30px;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerText .btnwarpper button {
+    font-size: 26px;
+    padding: 8px;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerImage {
+    width: 40%;
+    height: 100%;
+    order: 1;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerImage img {
+    width: 100%;
+    max-width: -moz-max-content;
+    max-width: max-content;
+    height: 100%;
+    -o-object-fit: initial;
+       object-fit: initial;
+  }
+  #buildOverview {
+    padding: 50px 0px;
+    background-color: var(--gray3);
+    background-size: 100% 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    color: var(--alabaster);
+  }
+  #buildOverview .partsHeader {
+    width: 100%;
+    height: -moz-max-content;
+    height: max-content;
+    background-color: var(--gray2);
+  }
+  #buildOverview .partsHeader h3 {
+    font-size: 36px;
+    font-family: var(--BebasNeue);
+    color: var(--alabaster);
+    text-align: center;
+  }
+  #buildOverview .partsHeader .navNtab {
+    width: 100%;
+  }
+  #buildOverview .partsHeader .navNtab ol {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    align-items: center;
+    justify-content: center;
+  }
+  #buildOverview .partsHeader .navNtab ol li {
+    margin: 0;
+    padding: 0;
+  }
+  #buildOverview .partsHeader .navNtab ol li .tab-btn {
+    padding: 10px 20px;
+    border: none;
+    background: var(--gray2);
+    color: white;
+    cursor: pointer;
+  }
+  #buildOverview .partsHeader .navNtab ol li .tab-btn.active {
+    background: var(--gray3);
+  }
+  #buildOverview .container {
+    width: 100%;
+    max-width: 90%;
+    margin: 0 auto;
+  }
+  #buildOverview .container .productControler {
+    width: 100%;
+    margin-top: 30px;
+    padding-top: 15px;
+    background-color: var(--gray2);
+    border-radius: 10px;
+  }
+  #buildOverview .container .productControler .urlWarpper {
+    width: 98%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-bottom: 10px;
+  }
+  #buildOverview .container .productControler .urlWarpper .urlbox {
+    width: 100%;
+    padding: 10px;
+    padding-left: 10px;
+  }
+  #buildOverview .container .productControler .urlWarpper .urlbox input {
+    width: 100%;
+    padding: 0;
+  }
+  #buildOverview .container .productControler .urlWarpper .markUpbox {
+    width: 100%;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  #buildOverview .container .productControler .urlWarpper .markUpbox .markUpIcon {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  #buildOverview .container .productControler .urlWarpper .markUpbox .markUpIcon span {
+    cursor: pointer;
+  }
+  #buildOverview .container .productControler .urlWarpper .markUpbox .markupBtn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  #buildOverview .container .productControler .urlWarpper .markUpbox .markupBtn .divASbtn span {
+    font-size: 12px;
+  }
+  #buildOverview .container .productControler .urlWarpper .markUpbox .markupBtn .divASbtn span svg {
+    width: 20px;
+    height: 20px;
+  }
+  #buildOverview .container .productControler .CompitibleNotes {
+    display: flex;
+    flex-direction: column;
+  }
+  #buildOverview .container .productControler .CompitibleNotes .greenSection {
+    font-size: 14px;
+    width: 100%;
+    background-color: var(--primary);
+    display: flex;
+    padding: 5px 0 0 10px;
+    gap: 15px;
+  }
+  #buildOverview .container .productControler .CompitibleNotes .skySection {
+    font-size: 14px;
+    width: 100%;
+    background-color: #034cb8;
+    display: flex;
+    justify-content: flex-end;
+    padding: 5px 10px 0 0;
+    gap: 15px;
+  }
+  #buildOverview .container .productControler .CompitibleNotes .skySection a {
+    color: var(--alabaster);
+  }
+  #buildOverview .container .tab_Content_Warpper .tab-content {
+    display: none;
+    padding: 20px;
+    width: 100%;
+  }
+  #buildOverview .container .tab_Content_Warpper .tab-content .cardWarpper {
+    display: flex;
+    gap: 0;
+    flex-wrap: wrap;
+  }
+  #buildOverview .container .tab_Content_Warpper .tab-content .cardWarpper .row {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+    border-bottom: 1px solid gray;
+  }
+  #buildOverview .container .tab_Content_Warpper .tab-content .cardWarpper .row .card {
+    width: 20%;
+    padding: 10px 0;
+    flex: 1;
+  }
+  #buildOverview .container .tab_Content_Warpper .tab-content .cardWarpper .row .card .rowHeading {
+    font-size: 14px;
+    font-weight: 300;
+    color: gray;
+  }
+  #buildOverview .container .tab_Content_Warpper .tab-content .cardWarpper .row .card .componentName {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--primary);
+  }
+  #buildOverview .container .tab_Content_Warpper .tab-content .cardWarpper .row .card .selectionBTN {
+    padding: 0 10px 5px 10px;
+    border-radius: 5px;
+    background-color: var(--edward);
+    color: #fff;
+  }
+  #buildOverview .container .tab_Content_Warpper .tab-content .cardWarpper .row .card .selectionBTN:hover {
+    background-color: var(--primary);
+    color: var(--alabaster);
+  }
+  #buildOverview .container .tab_Content_Warpper .tab-content .cardWarpper .row .selection {
+    flex-grow: 3;
+  }
+  #buildOverview .container .tab_Content_Warpper .tab-content .cardWarpper .row:nth-child(2) {
+    flex-grow: 1;
+  }
+  #buildOverview .container .tab_Content_Warpper .tab-content .cardWarpper .componentCard {
+    width: 250px;
+    height: 250px;
+    border: 1px solid gray;
+    background-color: rgba(3, 173, 125, 0.1921568627);
+    border-radius: 10px;
+    transition: 0.3s all linear;
+    cursor: pointer;
+  }
+  #buildOverview .container .tab_Content_Warpper .tab-content .cardWarpper .componentCard:hover {
+    background-color: rgba(5, 255, 184, 0.5215686275);
+  }
+  #buildOverview .container .tab_Content_Warpper .tab-content.active {
+    display: block;
+  }
+}
+@media only screen and (max-width: 1022px) {
+  header nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+  }
+  header nav .menu {
+    display: none;
+  }
+  header nav .smMenu {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  header nav .smMenu span {
+    cursor: pointer;
+  }
+}
+@media only screen and (min-width: 480px) {
+  #Banner_section .swiper .swiper-wrapper .swiper-slide {
+    padding: 10px;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide {
+    width: 100%;
+    height: -moz-max-content;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    padding-top: 50px;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerText {
+    width: 100%;
+    order: 2;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerText h1 {
+    font-size: 16vw;
+    text-align: center;
+    line-height: 1;
+    text-transform: uppercase;
+    color: var(--primary);
+    font-family: Bebas Neue;
+    max-width: 100%;
+    letter-spacing: 5px;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerText h1 span {
+    font-family: Bebas Neue;
+    color: var(--alabaster);
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerText .btnwarpper {
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 30px;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerText .btnwarpper button {
+    font-size: 26px;
+    padding: 8px;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerImage {
+    width: 40%;
+    height: 100%;
+    order: 1;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerImage img {
+    width: 100%;
+    max-width: -moz-max-content;
+    max-width: max-content;
+    height: 100%;
+    -o-object-fit: initial;
+       object-fit: initial;
+  }
+  #buildOverview .container .productControler {
+    width: 100%;
+    margin-top: 30px;
+    padding-top: 5px;
+    background-color: var(--gray2);
+    border-radius: 10px;
+  }
+  #buildOverview .container .productControler .urlWarpper {
+    width: 98%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-bottom: 10px;
+  }
+  #buildOverview .container .productControler .urlWarpper .urlbox {
+    width: 100%;
+    padding: 10px;
+  }
+  #buildOverview .container .productControler .urlWarpper .urlbox input {
+    width: 100%;
+    padding: 0;
+  }
+  #buildOverview .container .productControler .urlWarpper .markUpbox {
+    width: 100%;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  #buildOverview .container .productControler .urlWarpper .markUpbox .markUpIcon {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  #buildOverview .container .productControler .urlWarpper .markUpbox .markUpIcon span {
+    cursor: pointer;
+  }
+  #buildOverview .container .productControler .urlWarpper .markUpbox .markupBtn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+  }
+  #buildOverview .container .productControler .urlWarpper .markUpbox .markupBtn .divASbtn span {
+    font-size: 12px;
+  }
+  #buildOverview .container .productControler .urlWarpper .markUpbox .markupBtn .divASbtn span svg {
+    width: 20px;
+    height: 20px;
+  }
+  #buildOverview .container .productControler .CompitibleNotes {
+    display: flex;
+    flex-direction: column;
+  }
+  #buildOverview .container .productControler .CompitibleNotes .greenSection {
+    width: 100%;
+    background-color: green;
+    display: flex;
+    padding: 10px;
+    gap: 15px;
+  }
+  #buildOverview .container .productControler .CompitibleNotes .skySection {
+    width: 100%;
+    background-color: #034cb8;
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+    gap: 15px;
+  }
+  #buildOverview .container .productControler .CompitibleNotes .skySection a {
+    color: var(--alabaster);
+  }
+  #buildOverview .container .tab_Content_Warpper .tab-content {
+    display: none;
+    padding: 20px;
+    width: 100%;
+  }
+  #buildOverview .container .tab_Content_Warpper .tab-content .cardWarpper {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  #buildOverview .container .tab_Content_Warpper .tab-content .cardWarpper .componentCard {
+    width: 250px;
+    height: 250px;
+    border: 1px solid gray;
+    background-color: rgba(3, 173, 125, 0.1921568627);
+    border-radius: 10px;
+    transition: 0.3s all linear;
+    cursor: pointer;
+  }
+  #buildOverview .container .tab_Content_Warpper .tab-content .cardWarpper .componentCard:hover {
+    background-color: rgba(5, 255, 184, 0.5215686275);
+  }
+  #buildOverview .container .tab_Content_Warpper .tab-content.active {
+    display: block;
+  }
+}
+@media only screen and (min-width: 576px) {
+  #Banner_section .swiper .swiper-wrapper .swiper-slide {
+    padding: 10px;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide {
+    width: 100%;
+    height: -moz-max-content;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    padding-top: 50px;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerText {
+    width: 100%;
+    order: 2;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerText h1 {
+    font-size: 18vw;
+    text-align: center;
+    line-height: 1;
+    text-transform: uppercase;
+    color: var(--primary);
+    font-family: Bebas Neue;
+    max-width: 100%;
+    letter-spacing: 5px;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerText h1 span {
+    font-family: Bebas Neue;
+    color: var(--alabaster);
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerText .btnwarpper {
+    width: 100%;
+    margin-top: 30px;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerText .btnwarpper button {
+    font-size: 34px;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerImage {
+    width: 40%;
+    height: 100%;
+    order: 1;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerImage img {
+    width: 100%;
+    max-width: -moz-max-content;
+    max-width: max-content;
+    height: 100%;
+    -o-object-fit: initial;
+       object-fit: initial;
+  }
+}
+@media only screen and (min-width: 768px) {
+  #Banner_section .swiper .swiper-wrapper .swiper-slide {
+    padding: 10px;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide {
+    width: 100%;
+    height: -moz-max-content;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    padding-top: 50px;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerText {
+    width: 100%;
+    order: 2;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerText h1 {
+    font-size: 18vw;
+    text-align: center;
+    line-height: 1;
+    text-transform: uppercase;
+    color: var(--primary);
+    font-family: Bebas Neue;
+    max-width: 100%;
+    letter-spacing: 5px;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerText h1 span {
+    font-family: Bebas Neue;
+    color: var(--alabaster);
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerText .btnwarpper {
+    width: 100%;
+    margin-top: 30px;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerText .btnwarpper button {
+    font-size: 34px;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerImage {
+    width: 40%;
+    height: 100%;
+    order: 1;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerImage img {
+    width: 100%;
+    max-width: -moz-max-content;
+    max-width: max-content;
+    height: 100%;
+    -o-object-fit: initial;
+       object-fit: initial;
+  }
+  #buildOverview .container .productControler .urlWarpper .urlbox {
+    width: 100%;
+    padding: 10px;
+  }
+  #buildOverview .container .productControler .urlWarpper .urlbox input {
+    width: 100%;
+    padding: 0;
+  }
+  #buildOverview .container .productControler .urlWarpper .markUpbox {
+    width: 100%;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+  }
+  #buildOverview .container .productControler .urlWarpper .markUpbox .markUpIcon {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  #buildOverview .container .productControler .urlWarpper .markUpbox .markUpIcon span {
+    cursor: pointer;
+  }
+  #buildOverview .container .productControler .urlWarpper .markUpbox .markupBtn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+  }
+  #buildOverview .container .productControler .urlWarpper .markUpbox .markupBtn .divASbtn span {
+    font-size: 12px;
+  }
+  #buildOverview .container .productControler .urlWarpper .markUpbox .markupBtn .divASbtn span svg {
+    width: 20px;
+    height: 20px;
+  }
+  #buildOverview .container .productControler .CompitibleNotes {
+    display: flex;
+    flex-direction: row;
+  }
+  #buildOverview .container .productControler .CompitibleNotes .greenSection {
+    width: 60%;
+    background-color: var(--primary);
+    display: flex;
+    padding: 5px 10px 0 5px;
+    gap: 15px;
+  }
+  #buildOverview .container .productControler .CompitibleNotes .skySection {
+    width: 40%;
+    background-color: #034cb8;
+    display: flex;
+    justify-content: flex-end;
+    padding: 5px 10px 0 5px;
+    gap: 15px;
+  }
+  #buildOverview .container .productControler .CompitibleNotes .skySection a {
+    color: var(--alabaster);
+  }
+}
+@media only screen and (min-width: 922px) {
+  #Banner_section .swiper .swiper-wrapper .swiper-slide {
+    padding: 10px;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide {
+    width: 100%;
+    height: -moz-max-content;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    padding-top: 50px;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerText {
+    width: 100%;
+    order: 2;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerText h1 {
+    font-size: 18vw;
+    text-align: center;
+    line-height: 1;
+    text-transform: uppercase;
+    color: var(--primary);
+    font-family: Bebas Neue;
+    max-width: 100%;
+    letter-spacing: 5px;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerText h1 span {
+    font-family: Bebas Neue;
+    color: var(--alabaster);
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerText .btnwarpper {
+    width: 100%;
+    margin-top: 30px;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerText .btnwarpper button {
+    font-size: 34px;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerImage {
+    width: 40%;
+    height: 100%;
+    order: 1;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerImage img {
+    width: 100%;
+    max-width: -moz-max-content;
+    max-width: max-content;
+    height: 100%;
+    -o-object-fit: initial;
+       object-fit: initial;
+  }
+}
+@media only screen and (min-width: 1024px) {
+  #Banner_section {
+    width: 100%;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+  }
+  #Banner_section .swiper {
+    width: 100%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide {
+    width: 100%;
+    height: 100%;
+    padding-top: 100px;
+    text-align: center;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide {
+    width: 100%;
+    height: -moz-max-content;
+    height: max-content;
+    padding-left: 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerText {
+    width: 60%;
+    order: 1;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerText h1 {
+    font-size: 10.5vw;
+    text-align: left;
+    line-height: 1;
+    text-transform: uppercase;
+    color: var(--primary);
+    font-family: Bebas Neue;
+    max-width: 100%;
+    letter-spacing: 5px;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerText h1 span {
+    font-family: Bebas Neue;
+    color: var(--alabaster);
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerText .btnwarpper {
+    width: 40%;
+    margin-top: 30px;
+    margin-left: 0;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerText .btnwarpper button {
+    font-size: 24px;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerImage {
+    width: 40%;
+    height: 100%;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerImage img {
+    width: 100%;
+    max-width: -moz-max-content;
+    max-width: max-content;
+    height: 100%;
+    -o-object-fit: initial;
+       object-fit: initial;
+  }
+  #buildOverview .partsHeader {
+    padding-top: 20px;
+  }
+  #buildOverview .container .productControler {
+    width: 100%;
+    margin-top: 50px;
+    padding-top: 15px;
+    background-color: var(--gray2);
+    border-radius: 10px;
+  }
+  #buildOverview .container .productControler .urlWarpper {
+    width: 98%;
+    margin: 0 auto;
+    display: flex;
+    padding-bottom: 10px;
+  }
+  #buildOverview .container .productControler .urlWarpper .urlbox {
+    width: 100%;
+    padding: 0px;
+    padding-left: 10px;
+  }
+  #buildOverview .container .productControler .urlWarpper .urlbox input {
+    width: 100%;
+    padding: 0;
+  }
+  #buildOverview .container .productControler .urlWarpper .markUpbox {
+    width: 100%;
+    padding: 0;
+    display: flex;
+  }
+  #buildOverview .container .productControler .urlWarpper .markUpbox .markUpIcon {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+  }
+  #buildOverview .container .productControler .urlWarpper .markUpbox .markUpIcon span {
+    cursor: pointer;
+  }
+  #buildOverview .container .productControler .urlWarpper .markUpbox .markupBtn {
+    width: 50%;
+    display: flex;
+    gap: 20px;
+  }
+  #buildOverview .container .tab_Content_Warpper .tab-content {
+    display: none;
+    padding: 20px;
+    width: 100%;
+  }
+  #buildOverview .container .tab_Content_Warpper .tab-content .cardWarpper {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  #buildOverview .container .tab_Content_Warpper .tab-content .cardWarpper .componentCard {
+    width: 250px;
+    height: 250px;
+    border: 1px solid gray;
+    background-color: rgba(3, 173, 125, 0.1921568627);
+    border-radius: 10px;
+    transition: 0.3s all linear;
+    cursor: pointer;
+  }
+  #buildOverview .container .tab_Content_Warpper .tab-content .cardWarpper .componentCard:hover {
+    background-color: rgba(5, 255, 184, 0.5215686275);
+  }
+  #buildOverview .container .tab_Content_Warpper .tab-content.active {
+    display: block;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  #Banner_section {
+    width: 100%;
+    height: 100vh;
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+  }
+  #Banner_section .swiper {
+    width: 100%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide {
+    width: 100%;
+    height: 100%;
+    padding-top: 100px;
+    text-align: center;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide {
+    width: 100%;
+    height: -moz-max-content;
+    height: max-content;
+    padding-left: 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerText {
+    width: 60%;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerText h1 {
+    font-size: 10.5vw;
+    text-align: left;
+    line-height: 1;
+    text-transform: uppercase;
+    color: var(--primary);
+    font-family: Bebas Neue;
+    max-width: 100%;
+    letter-spacing: 5px;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerText h1 span {
+    font-family: Bebas Neue;
+    color: var(--alabaster);
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerText .btnwarpper {
+    width: -moz-max-content;
+    width: max-content;
+    margin-top: 30px;
+    width: 100%;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerText .btnwarpper button {
+    font-size: 34px;
+    width: 100%;
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerImage {
+    width: 40%;
+    height: calc(100% - 50px);
+  }
+  #Banner_section .swiper .swiper-wrapper .swiper-slide .innerSlide .bannerImage img {
+    width: 100%;
+    max-width: -moz-max-content;
+    max-width: max-content;
+    height: 100%;
+    -o-object-fit: initial;
+       object-fit: initial;
+  }
+  #buildOverview {
+    padding: 50px 0px;
+    background-color: var(--gray3);
+    background-size: 100% 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    color: var(--alabaster);
+  }
+  #buildOverview .partsHeader {
+    padding-top: 30px;
+  }
+  #buildOverview .container {
+    width: 100%;
+    max-width: 90%;
+    margin: 0 auto;
+  }
+  #buildOverview .container .productControler {
+    width: 100%;
+    margin-top: 50px;
+    padding-top: 10px;
+    background-color: var(--gray2);
+    border-radius: 10px;
+  }
+  #buildOverview .container .productControler .urlWarpper {
+    width: 98%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 10px;
+  }
+  #buildOverview .container .productControler .CompitibleNotes .greenSection {
+    width: 80%;
+    padding: 0;
+    padding-top: 5px;
+    padding-left: 10px;
+  }
+  #buildOverview .container .productControler .CompitibleNotes .skySection {
+    width: 20%;
+    padding: 0;
+    padding-top: 5px;
+    padding-right: 10px;
+  }
+}/*# sourceMappingURL=index.css.map */
+
+:root{
+  --primary:#25AC94;
+  --alabaster:#FBFBFB;
+  --codgray:#070707;
+  --edward:#9FB4B0;
+  --gray:#848484;
+  --gray2:#3D3D54;
+  --gray3:#282838;
+  --Manrope : "Manrope";
+  --BebasNeue:'Bebas Neue';
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Manrope", sans-serif;
+}
+
+.redButton{
+    width: 100%;
+    padding: 20px 0;
+    font-size: 24px;
+    background-color: var(--primary);
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    color: var(--alabaster);
+}
+a{
+  display: inline-block;
+  text-decoration: none;
+}
+ul,ol{
+  list-style-type: none;
+}
+button{
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.itemWarpper{
+  width: 100%;
+  height: 100%;
+  padding: 3%;
+  border: 1px solid gray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* add by kamruzzaman *******************************/
+
+.where img {
+  filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.5));
+}
+
+#cpuModal {
+  display: none;
+  position: fixed;
+  top: 150px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1470px;
+  max-width: 100%;
+  background: #fff;
+  border-radius: 10px;
+  padding: 50px;
+  z-index: 1001;
+  overflow-y: auto;
+  max-height: 90vh;
+}
+
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 1000;
+}
+
+.popup-window {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1470px;
+  max-width: 95%;
+  background: #fff;
+  z-index: 9999;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #000;
+}
+
+#overviewContainer {
+  display: flex;
+  justify-content: center;
+  padding: 30px 0;
+}
+
+.product-overview-box {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 850px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.product-left {
+  flex: 1 1 300px;
+  background-color: #f8f8f8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+}
+
+.product-left img.overview-image {
+  max-width: 100%;
+  max-height: 300px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.product-right {
+  flex: 1 1 400px;
+  padding: 30px;
+}
+
+.overview-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.overview-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.overview-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #eaeaea;
+  vertical-align: top;
+}
+
+.overview-table td:first-child {
+  font-weight: 500;
+  color: #444;
+  width: 35%;
+  text-transform: capitalize;
+}
+
+.sortable-header {
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.sortable-header:hover {
+  text-decoration: underline;
+}
+
+.entry-content thead th, .entry-content tr th {
+  padding: 10px !important;
+}
+
+.min-range-bg, .max-range-bg {
+  background-color: #CCC;
+}
+
+#rating-filter label {
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+
+#rating-filter input[type="checkbox"] {
+  transform: scale(1.1);
+}
+
+.filter-group {
+    background-color: #f9f9f9;
+    border-top: 1px solid #e5e7eb;
+    font-family: sans-serif;
+}
+
+.filter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    font-size: 13px;
+    color: #111827;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.filter-toggle {
+    background: none;
+    border: none;
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+    color: #111827;
+}
+
+.filter-options label {
+    font-size: 14px;
+    color: #111827;
+    cursor: pointer;
+}
+
+.filter-options input[type="checkbox"] {
+    margin-right: 6px;
+    accent-color: #2563eb; /* Blue check */
+}
+
+.add-selected-to-builder {
+  display: block;
+  margin-left: auto;
+  padding: 10px 18px;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.disabled {
+  pointer-events: none;
+  color: #999;
+  text-decoration: none;
+  cursor: default;
+}
+
+/* css adding for category single page  ****************************/
+
+@media (max-width: 768px) {
+  header nav {
+    margin-top: -80px;
+  }
+  .pcbuilder-container {
+      flex-direction: column;
+  }
+  .pcbuild-sidebar,
+  .pcbuilder-main {
+      width: 100% !important;
+  }
+  .pcbuilder-main {
+      max-height: 80vh;
+      overflow-y: auto;
+  }
+}
+
+/* Base table styling */
+#pcbuild-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#pcbuild-table thead {
+    background-color: #f0f0f0;
+}
+
+#pcbuild-table th {
+    padding: 12px 10px;
+    text-align: left;
+    font-weight: bold;
+    border-bottom: 1px solid #ddd;
+}
+
+#pcbuild-table td {
+    padding: 12px 10px;
+    vertical-align: middle;
+}
+
+/* Product row styling */
+#pcbuild-table tbody tr {
+    border-bottom: 1px solid #ddd;
+}
+
+#pcbuild-table tbody tr:nth-child(even) {
+    background-color: #ebebeb;
+}
+
+#pcbuild-table tbody tr:nth-child(odd) {
+    background-color: #d4d4d4;
+}
+
+/* Product image styling */
+.product-image {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin-right: 10px;
+}
+
+/* Product name styling */
+.product-name {
+    font-weight: bold;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* Star rating styling */
+.star-rating {
+    color: #f9a825;
+    font-size: 14px;
+    display: block;
+}
+
+/* Add button styling */
+.add-to-builder {
+    background-color: #25AC94;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 15px;
+    cursor: pointer;
+    font-weight: normal;
+}
+
+/* Mobile responsive styling - EXACT MATCH to the image */
+@media (max-width: 768px) {
+    /* Reset table layout for mobile - exactly like image */
+    #pcbuild-table tbody tr {
+        display: block;
+        margin-bottom: 10px;
+        border: none;
+        padding: 0;
+    }
+    
+    /* Hide table header on mobile */
+    #pcbuild-table thead {
+        display: none;
+    }
+    
+    /* Product cell - exact match to image layout */
+    #pcbuild-table .product-cell {
+        display: flex;
+        padding: 10px;
+        align-items: center;
+        border-bottom: none;
+    }
+    
+    /* Image container */
+    .image-container {
+        flex: 0 0 60px;
+        margin-right: 10px;
+    }
+    
+    /* Product image */
+    .product-image {
+        width: 60px;
+        height: 60px;
+        object-fit: contain;
+    }
+    
+    /* Product details container */
+    .product-info {
+        flex: 1;
+    }
+    
+    /* Product name */
+    .product-name {
+        font-weight: bold;
+        margin-bottom: 5px;
+        display: block;
+    }
+    
+    /* Rating stars */
+    .star-rating {
+        margin-bottom: 5px;
+    }
+    
+    /* Specs styling - two column layout in mobile */
+    .specs-container {
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 10px;
+    }
+    
+    .spec-group {
+        width: 50%;
+        margin-bottom: 8px;
+    }
+    
+    .spec-label {
+		font-weight: 700!important;
+        color: #000;
+        font-size: 14px!important;
+    }
+    
+    .spec-value {
+        font-size: 14px;
+    }
+    
+    /* Price and action row - exact match to image */
+    .price-action-row {
+        display: flex;
+        padding: 10px;
+        justify-content: space-between;
+        align-items: center;
+        background-color: inherit;
+    }
+    
+    /* Price styling */
+    .price {
+        font-weight: bold;
+        font-size: 16px;
+    }
+    
+    /* Add button container */
+    .action-cell {
+        text-align: right;
+    }
+}
+
+@media (max-width: 768px) {
+    .pcbuild-sidebar-mobile {
+        transform: translateX(-110%);
+        transition: transform 0.3s ease-in-out;
+        top: 0;
+        left: 0;
+        width: 250px;
+        height: 100%;
+        background: #f9f9f9;
+        padding: 20px;
+        border-radius: 8px 0 0 8px;
+        z-index: 1000;
+        overflow-y: auto;
+
+    }
+    /* before click height should be 0 */
+    .pcbuild-sidebar-mobile:not(.open) {
+        height: 0;
+    }
+
+    .pcbuild-sidebar-mobile.open {
+        transform: translateX(0);
+    }
+    /* when the sidebar is hidden then their height should be 0 */
+    .pcbuild-sidebar-mobile.hidden {
+        height: 0;
+    }
+}
+
+.pcbuild-sidebar-toggle {
+    background-color: rgb(10, 45, 83);
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+@media (min-width: 768px) {
+    .pcbuild-sidebar-toggle {
+        display: none;
+    }
+}
+
+.partsHeader h3{
+    padding-bottom: 25px;
+}
+
+.selectionBTN span{
+  color: #FFFFFF!important;
+}
+
+.selectionBTN {
+  background: #25AC94!important;
+  color: #FFFFFF!important;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding-top: 5px!important;
+}
+
+.buy button {
+  background: #25AC94!important;
+}
+
+#footer .footer-warper .footer-logo img {
+  width: 100px!important;
+  height: auto!important;
+}
+
+.row {
+  margin-top: -15px!important;
+}
+
+
+
+
+

@@ -1,0 +1,588 @@
+{
+    "SearchResult": {
+     "Items": [
+      {
+       "ASIN": "B00MYTSN18",
+       "BrowseNodeInfo": {
+        "BrowseNodes": [
+         {
+          "Ancestor": {
+           "Ancestor": {
+            "Ancestor": {
+             "Ancestor": {
+              "Ancestor": {
+               "ContextFreeName": "Electronics",
+               "DisplayName": "Electronics",
+               "Id": "172282"
+              },
+              "ContextFreeName": "Electronics",
+              "DisplayName": "Categories",
+              "Id": "493964"
+             },
+             "ContextFreeName": "Computers & Accessories",
+             "DisplayName": "Computers & Accessories",
+             "Id": "541966"
+            },
+            "ContextFreeName": "Computer Networking",
+            "DisplayName": "Networking Products",
+            "Id": "172504"
+           },
+           "ContextFreeName": "Computer Network Adapters",
+           "DisplayName": "Network Adapters",
+           "Id": "490499011"
+          },
+          "ContextFreeName": "USB Computer Network Adapters",
+          "DisplayName": "USB Network Adapters",
+          "Id": "13983791",
+          "IsRoot": false,
+          "SalesRank": 6
+         },
+         {
+          "Ancestor": {
+           "Ancestor": {
+            "Ancestor": {
+             "Ancestor": {
+              "Ancestor": {
+               "ContextFreeName": "Electronics",
+               "DisplayName": "Electronics",
+               "Id": "172282"
+              },
+              "ContextFreeName": "Arborist Merchandising Root",
+              "DisplayName": "Arborist Merchandising Root",
+              "Id": "119971462011"
+             },
+             "ContextFreeName": "Electronics Features Self Service",
+             "DisplayName": "Electronics Features Self Service",
+             "Id": "2334089011"
+            },
+            "ContextFreeName": "Special Features Stores",
+            "DisplayName": "Special Features Stores",
+            "Id": "2334151011"
+           },
+           "ContextFreeName": "8346234c-3736-4001-b2a5-9fd229148daa_0",
+           "DisplayName": "8346234c-3736-4001-b2a5-9fd229148daa_0",
+           "Id": "119971465011"
+          },
+          "ContextFreeName": "8346234c-3736-4001-b2a5-9fd229148daa_2501",
+          "DisplayName": "8346234c-3736-4001-b2a5-9fd229148daa_2501",
+          "Id": "119971592011",
+          "IsRoot": false
+         },
+         {
+          "Ancestor": {
+           "Ancestor": {
+            "Ancestor": {
+             "Ancestor": {
+              "Ancestor": {
+               "Ancestor": {
+                "ContextFreeName": "Electronics",
+                "DisplayName": "Electronics",
+                "Id": "172282"
+               },
+               "ContextFreeName": "Arborist Merchandising Root",
+               "DisplayName": "Arborist Merchandising Root",
+               "Id": "119971462011"
+              },
+              "ContextFreeName": "Computers Features Self Service",
+              "DisplayName": "Computers Features Self Service",
+              "Id": "2334091011"
+             },
+             "ContextFreeName": "Special Features Stores",
+             "DisplayName": "Special Features Stores",
+             "Id": "2334153011"
+            },
+            "ContextFreeName": "f0c28841-68d6-4709-968f-f6525567f4dc_0",
+            "DisplayName": "f0c28841-68d6-4709-968f-f6525567f4dc_0",
+            "Id": "119971468011"
+           },
+           "ContextFreeName": "f0c28841-68d6-4709-968f-f6525567f4dc_701",
+           "DisplayName": "f0c28841-68d6-4709-968f-f6525567f4dc_701",
+           "Id": "119971807011"
+          },
+          "ContextFreeName": "Computers Low Return Rate Alert",
+          "DisplayName": "Computers Low Return Rate Alert",
+          "Id": "16977619011",
+          "IsRoot": false
+         }
+        ]
+       },
+       "DetailPageURL": "https://www.amazon.com/dp/B00MYTSN18?tag=pcbuildpartscom-20&linkCode=osi&th=1&psc=1",
+       "Images": {
+        "Primary": {
+         "Large": {
+          "Height": 500,
+          "URL": "https://m.media-amazon.com/images/I/31nE9VYaJxL._SL500_.jpg",
+          "Width": 375
+         },
+         "Medium": {
+          "Height": 160,
+          "URL": "https://m.media-amazon.com/images/I/31nE9VYaJxL._SL160_.jpg",
+          "Width": 120
+         },
+         "Small": {
+          "Height": 75,
+          "URL": "https://m.media-amazon.com/images/I/31nE9VYaJxL._SL75_.jpg",
+          "Width": 56
+         }
+        },
+        "Variants": [
+         {
+          "Large": {
+           "Height": 500,
+           "URL": "https://m.media-amazon.com/images/I/417ftEgrAbL._SL500_.jpg",
+           "Width": 375
+          },
+          "Medium": {
+           "Height": 160,
+           "URL": "https://m.media-amazon.com/images/I/417ftEgrAbL._SL160_.jpg",
+           "Width": 120
+          },
+          "Small": {
+           "Height": 75,
+           "URL": "https://m.media-amazon.com/images/I/417ftEgrAbL._SL75_.jpg",
+           "Width": 56
+          }
+         },
+         {
+          "Large": {
+           "Height": 500,
+           "URL": "https://m.media-amazon.com/images/I/41HlBYuAA2L._SL500_.jpg",
+           "Width": 375
+          },
+          "Medium": {
+           "Height": 160,
+           "URL": "https://m.media-amazon.com/images/I/41HlBYuAA2L._SL160_.jpg",
+           "Width": 120
+          },
+          "Small": {
+           "Height": 75,
+           "URL": "https://m.media-amazon.com/images/I/41HlBYuAA2L._SL75_.jpg",
+           "Width": 56
+          }
+         },
+         {
+          "Large": {
+           "Height": 500,
+           "URL": "https://m.media-amazon.com/images/I/41ny54DLDwL._SL500_.jpg",
+           "Width": 375
+          },
+          "Medium": {
+           "Height": 160,
+           "URL": "https://m.media-amazon.com/images/I/41ny54DLDwL._SL160_.jpg",
+           "Width": 120
+          },
+          "Small": {
+           "Height": 75,
+           "URL": "https://m.media-amazon.com/images/I/41ny54DLDwL._SL75_.jpg",
+           "Width": 56
+          }
+         },
+         {
+          "Large": {
+           "Height": 500,
+           "URL": "https://m.media-amazon.com/images/I/41CtE+GqSOL._SL500_.jpg",
+           "Width": 375
+          },
+          "Medium": {
+           "Height": 160,
+           "URL": "https://m.media-amazon.com/images/I/41CtE+GqSOL._SL160_.jpg",
+           "Width": 120
+          },
+          "Small": {
+           "Height": 75,
+           "URL": "https://m.media-amazon.com/images/I/41CtE+GqSOL._SL75_.jpg",
+           "Width": 56
+          }
+         },
+         {
+          "Large": {
+           "Height": 500,
+           "URL": "https://m.media-amazon.com/images/I/41ZSMAwQyYL._SL500_.jpg",
+           "Width": 375
+          },
+          "Medium": {
+           "Height": 160,
+           "URL": "https://m.media-amazon.com/images/I/41ZSMAwQyYL._SL160_.jpg",
+           "Width": 120
+          },
+          "Small": {
+           "Height": 75,
+           "URL": "https://m.media-amazon.com/images/I/41ZSMAwQyYL._SL75_.jpg",
+           "Width": 56
+          }
+         },
+         {
+          "Large": {
+           "Height": 500,
+           "URL": "https://m.media-amazon.com/images/I/415B95zRsnL._SL500_.jpg",
+           "Width": 375
+          },
+          "Medium": {
+           "Height": 160,
+           "URL": "https://m.media-amazon.com/images/I/415B95zRsnL._SL160_.jpg",
+           "Width": 120
+          },
+          "Small": {
+           "Height": 75,
+           "URL": "https://m.media-amazon.com/images/I/415B95zRsnL._SL75_.jpg",
+           "Width": 56
+          }
+         },
+         {
+          "Large": {
+           "Height": 500,
+           "URL": "https://m.media-amazon.com/images/I/41JlLz7M9bL._SL500_.jpg",
+           "Width": 375
+          },
+          "Medium": {
+           "Height": 160,
+           "URL": "https://m.media-amazon.com/images/I/41JlLz7M9bL._SL160_.jpg",
+           "Width": 120
+          },
+          "Small": {
+           "Height": 75,
+           "URL": "https://m.media-amazon.com/images/I/41JlLz7M9bL._SL75_.jpg",
+           "Width": 56
+          }
+         },
+         {
+          "Large": {
+           "Height": 500,
+           "URL": "https://m.media-amazon.com/images/I/31LBQxc-K7L._SL500_.jpg",
+           "Width": 375
+          },
+          "Medium": {
+           "Height": 160,
+           "URL": "https://m.media-amazon.com/images/I/31LBQxc-K7L._SL160_.jpg",
+           "Width": 120
+          },
+          "Small": {
+           "Height": 75,
+           "URL": "https://m.media-amazon.com/images/I/31LBQxc-K7L._SL75_.jpg",
+           "Width": 56
+          }
+         }
+        ]
+       },
+       "ItemInfo": {
+        "ByLineInfo": {
+         "Brand": {
+          "DisplayValue": "UGREEN",
+          "Label": "Brand",
+          "Locale": "en_US"
+         },
+         "Manufacturer": {
+          "DisplayValue": "Ugreen Group Limited",
+          "Label": "Manufacturer",
+          "Locale": "en_US"
+         }
+        },
+        "Classifications": {
+         "Binding": {
+          "DisplayValue": "Personal Computers",
+          "Label": "Binding",
+          "Locale": "en_US"
+         },
+         "ProductGroup": {
+          "DisplayValue": "Electronics",
+          "Label": "ProductGroup",
+          "Locale": "en_US"
+         }
+        },
+        "ExternalIds": {
+         "EANs": {
+          "DisplayValues": [
+           "8011560044221",
+           "6221323279308",
+           "6957303822560",
+           "0634475546338",
+           "6222051816124"
+          ],
+          "Label": "EAN",
+          "Locale": "en_US"
+         },
+         "UPCs": {
+          "DisplayValues": [
+           "634475546338"
+          ],
+          "Label": "UPC",
+          "Locale": "en_US"
+         }
+        },
+        "Features": {
+         "DisplayValues": [
+          "1000Mbps Hyper Speed: UGREEN usb to ethernet adapter can provide gigabit network speed. It can give a full play to the performance of LAN and ensure stable network speed for you to online gaming, online HD video streaming, upload, download, and more",
+          "Plug and Play: UGREEN ethernet adapter for laptop is plug and play for Windows 11/10/8.1/8, macOS, and Chrome OS. (No Driver Needed) It's also driver-free and compatible with Nintendo Switch, and Switch Oled. Just plug in and enjoy a smooth wired network",
+          "Compatible with Nintendo Switch: This ethernet to usb adapter is perfectly compatible with Nintendo Switch and Switch Oled. No more suffering from slow download speeds and high network latency, enjoy smooth online gaming with friends",
+          "Wide Compatibility: UGREEN usb to ethernet is compatible with most desktop PCs, laptops, Nintendo Switch, Switch Oled, and TV boxes with USB A port, like ThinkPad, Surface, XPS, Chromebook, Spectre, Zenbook, Macbook, Mac Mini, Mi Box, etc",
+          "Compact and Portable: This ethernet to usb has a brand new small-size design. You can easily take it anywhere with your briefcase or pocket, very suitable for the business person"
+         ],
+         "Label": "Features",
+         "Locale": "en_US"
+        },
+        "ManufactureInfo": {
+         "ItemPartNumber": {
+          "DisplayValue": "FBA_20256",
+          "Label": "PartNumber",
+          "Locale": "en_US"
+         },
+         "Model": {
+          "DisplayValue": "FBA_20256",
+          "Label": "Model",
+          "Locale": "en_US"
+         },
+         "Warranty": {
+          "DisplayValue": "24 Months Warranty Service by UGREEN",
+          "Label": "Warranty",
+          "Locale": "en_US"
+         }
+        },
+        "ProductInfo": {
+         "Color": {
+          "DisplayValue": "Black",
+          "Label": "Color",
+          "Locale": "en_US"
+         },
+         "IsAdultProduct": {
+          "DisplayValue": false,
+          "Label": "IsAdultProduct",
+          "Locale": "en_US"
+         },
+         "ItemDimensions": {
+          "Height": {
+           "DisplayValue": 0.7086614166,
+           "Label": "Height",
+           "Locale": "en_US",
+           "Unit": "Inches"
+          },
+          "Length": {
+           "DisplayValue": 2.4409448794,
+           "Label": "Length",
+           "Locale": "en_US",
+           "Unit": "Inches"
+          },
+          "Weight": {
+           "DisplayValue": 0.0881849048,
+           "Label": "Weight",
+           "Locale": "en_US",
+           "Unit": "pounds"
+          },
+          "Width": {
+           "DisplayValue": 1.0236220462,
+           "Label": "Width",
+           "Locale": "en_US",
+           "Unit": "Inches"
+          }
+         },
+         "Size": {
+          "DisplayValue": "2.4 *0.9*0.6 inch",
+          "Label": "Size",
+          "Locale": "en_US"
+         }
+        },
+        "Title": {
+         "DisplayValue": "UGREEN USB to Ethernet Adapter, 1000Mbps Plug and Play Ethernet Adapter with USB 3.0, Driver Free, RJ45 LAN Network Dongle Compatible with Nintendo Switch, Laptop, PC, MacBook, Windows, macOS, Linux",
+         "Label": "Title",
+         "Locale": "en_US"
+        }
+       },
+       "Offers": {
+        "Listings": [
+         {
+          "Availability": {
+           "Message": "In Stock",
+           "MinOrderQuantity": 1,
+           "Type": "Now"
+          },
+          "Condition": {
+           "SubCondition": {
+            "Value": "New"
+           },
+           "Value": "New"
+          },
+          "DeliveryInfo": {
+           "IsAmazonFulfilled": true,
+           "IsFreeShippingEligible": true,
+           "IsPrimeEligible": true
+          },
+          "Id": "BdLqU6iUzFc2Of4%2FFmlP%2F5uAiSwA%2Ffm6FjOcAYPBfb0PtXy5SOvtDb1GFOsXkAq2Qv3Fkw2yN40IlzHKq%2B7VMud7bQnIU%2FnEEYgORJPZDQYDO1Nlda8aLEj3vrqMQF1nT9OtFoZoEAmC4xKayC%2BEI%2FFuaoH8RJuKywq5NmIqMl%2B7Dr5fbZtfxNngDR4vYgnw",
+          "IsBuyBoxWinner": true,
+          "MerchantInfo": {
+           "DefaultShippingCountry": "US",
+           "FeedbackCount": 8765,
+           "FeedbackRating": 4.91,
+           "Id": "AKXVBT49GGF3B",
+           "Name": "UGREEN GROUP LIMITED"
+          },
+          "Price": {
+           "Amount": 11.99,
+           "Currency": "USD",
+           "DisplayAmount": "$11.99",
+           "Savings": {
+            "Amount": 3,
+            "Currency": "USD",
+            "DisplayAmount": "$3.00 (20%)",
+            "Percentage": 20
+           }
+          },
+          "ProgramEligibility": {
+           "IsPrimeExclusive": false,
+           "IsPrimePantry": false
+          },
+          "SavingBasis": {
+           "Amount": 14.99,
+           "Currency": "USD",
+           "DisplayAmount": "$14.99",
+           "PriceType": "LIST_PRICE"
+          },
+          "ViolatesMAP": false
+         }
+        ],
+        "Summaries": [
+         {
+          "Condition": {
+           "Value": "New"
+          },
+          "HighestPrice": {
+           "Amount": 11.99,
+           "Currency": "USD",
+           "DisplayAmount": "$11.99"
+          },
+          "LowestPrice": {
+           "Amount": 11.99,
+           "Currency": "USD",
+           "DisplayAmount": "$11.99"
+          },
+          "OfferCount": 1
+         }
+        ]
+       },
+       "ParentASIN": "B077SMC7TN"
+      }
+
+
+     ],
+     "SearchRefinements": {
+      "BrowseNode": {
+       "Bins": [
+        {
+         "DisplayName": "Accessories & Supplies",
+         "Id": "281407"
+        },
+        {
+         "DisplayName": "Camera & Photo",
+         "Id": "502394"
+        },
+        {
+         "DisplayName": "Car & Vehicle Electronics",
+         "Id": "3248684011"
+        },
+        {
+         "DisplayName": "Cell Phones & Accessories",
+         "Id": "2811119011"
+        },
+        {
+         "DisplayName": "Computers & Accessories",
+         "Id": "541966"
+        },
+        {
+         "DisplayName": "Electronic Protection Plans",
+         "Id": "2242348011"
+        },
+        {
+         "DisplayName": "GPS, Finders & Accessories",
+         "Id": "172526"
+        },
+        {
+         "DisplayName": "Home Audio",
+         "Id": "667846011"
+        },
+        {
+         "DisplayName": "Office Electronics",
+         "Id": "172574"
+        },
+        {
+         "DisplayName": "Portable Audio & Video",
+         "Id": "172623"
+        },
+        {
+         "DisplayName": "Security & Surveillance",
+         "Id": "524136"
+        },
+        {
+         "DisplayName": "Service Plans",
+         "Id": "16285901"
+        },
+        {
+         "DisplayName": "Television & Video",
+         "Id": "1266092011"
+        },
+        {
+         "DisplayName": "Video Game Consoles & Accessories",
+         "Id": "7926841011"
+        },
+        {
+         "DisplayName": "Video Projectors",
+         "Id": "300334"
+        },
+        {
+         "DisplayName": "Wearable Technology",
+         "Id": "10048700011"
+        },
+        {
+         "DisplayName": "eBook Readers & Accessories",
+         "Id": "2642125011"
+        },
+        {
+         "DisplayName": "Headphones, Earbuds & Accessories",
+         "Id": "24046923011"
+        },
+        {
+         "DisplayName": "Household Batteries, Chargers & Accessories",
+         "Id": "21608214011"
+        },
+        {
+         "DisplayName": "Power Accessories",
+         "Id": "21608215011"
+        },
+        {
+         "DisplayName": "Tablets",
+         "Id": "1232597011"
+        }
+       ],
+       "DisplayName": "Electronics",
+       "Id": "BrowseNodeId"
+      },
+      "OtherRefinements": [
+       {
+        "Bins": [
+         {
+          "DisplayName": "Apple",
+          "Id": "Apple"
+         },
+         {
+          "DisplayName": "Samsung",
+          "Id": "Samsung"
+         },
+         {
+          "DisplayName": "Sony",
+          "Id": "Sony"
+         },
+         {
+          "DisplayName": "Logitech",
+          "Id": "Logitech"
+         },
+         {
+          "DisplayName": "HP",
+          "Id": "HP"
+         }
+        ],
+        "DisplayName": "Brands",
+        "Id": "Brand"
+       }
+      ]
+     },
+     "SearchURL": "https://www.amazon.com/s?k=Wired+Network+Adapter&i=electronics&rh=p_n_availability%3A2661600011&tag=pcbuildpartscom-20&linkCode=osi",
+     "TotalResultCount": 1000
+    }
+   }
