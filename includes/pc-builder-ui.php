@@ -324,78 +324,102 @@ function pcbuild_render_ui_shortcode() {
                             <?php endif; ?>
                         </div>
 
+                        <!-- Headphone selection row showing pricing, availability, and purchase options -->
 
-
-                        <div class="category-row">
-                            <div class="category-label">Expansion Cards /<br> Networking</div>
-                            <div class="category-items">
+                        <div class="row">
+                            <div class="comp card">
                                 <a href="javascript:void(0)" class="pc-part"
-                                    data-redirect="<?php echo site_url('/products/sound-cards'); ?>">
-                                    <span class="componentName">Sound Cards</span>
-                                </a>
-                                <a href="javascript:void(0)" class="pc-part"
-                                    data-redirect="<?php echo site_url('/products/wired-network-adapters'); ?>">
-                                    <span class="componentName">Wired Network Adapters</span>
-                                </a>
-                                <a href="javascript:void(0)" class="pc-part"
-                                    data-redirect="<?php echo site_url('/products/wireless-network-adapters'); ?>">
-                                    <span class="componentName">Wireless Network Adapters</span>
+                                    data-redirect="<?php echo site_url('/products/headphones'); ?>">
+                                    <span class="componentName">Headphones</span>
                                 </a>
                             </div>
-                        </div>
-
-                        <div style="width: 100%;"></div>
-
-                        <div class="category-row">
-                            <div class="category-label">Peripherals</div>
-                            <div class="category-items">
-                                <a href="#">Headphones</a>
-                                <a href="#">Keyboards</a>
-                                <a href="#">Mice</a>
-                                <a href="#">Speakers</a>
-                                <a href="#">Webcams</a>
+                            <div class="selection card">
+                                <button class="selectionBTN">
+                                    <span style='font-size:20px;'>&#43;</span>
+                                    <a href="javascript:void(0)" class="pc-part"
+                                        data-redirect="<?php echo site_url('/products/headphones'); ?>">
+                                        <span>Choose A Headphone</span>
+                                    </a>
+                                </button>
                             </div>
-                        </div>
+                            <?php if (!isMobile()): ?>
+                            <?php foreach ($cards as $card) echo "<div class='{$card} card'></div>"; ?>
+                            <?php endif; ?>
 
-                        <div class="category-row">
-                            <div class="category-label">Accessories / Other</div>
-                            <div class="category-items">
-                                <a href="#">Case Accessories</a>
-                                <a href="#">Case Fans</a>
-                                <a href="#">Fan Controllers</a>
-                                <a href="#">Thermal Compound</a>
-                                <a href="#">External Storage</a>
-                                <a href="#">Optical Drives</a>
-                                <a href="#">UPS Systems</a>
+
+                            <div class="category-row">
+                                <div class="category-label">Expansion Cards /<br> Networking</div>
+                                <div class="category-items">
+                                    <a href="javascript:void(0)" class="pc-part"
+                                        data-redirect="<?php echo site_url('/products/sound-cards'); ?>">
+                                        <span class="componentName">Sound Cards</span>
+                                    </a>
+                                    <a href="javascript:void(0)" class="pc-part"
+                                        data-redirect="<?php echo site_url('/products/wired-network-adapters'); ?>">
+                                        <span class="componentName">Wired Network Adapters</span>
+                                    </a>
+                                    <a href="javascript:void(0)" class="pc-part"
+                                        data-redirect="<?php echo site_url('/products/wireless-network-adapters'); ?>">
+                                        <span class="componentName">Wireless Network Adapters</span>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
 
+                            <div style="width: 100%;"></div>
+
+                            <div class="category-row">
+                                <div class="category-label">Peripherals</div>
+                                <div class="category-items">
+                                    <a href="javascript:void(0)" class="pc-part"
+                                        data-redirect="<?php echo site_url('/products/headphones'); ?>">
+                                        <span class="componentName">Headphones</span>
+                                    </a>
+                                    <a href="#">Keyboards</a>
+                                    <a href="#">Mice</a>
+                                    <a href="#">Speakers</a>
+                                    <a href="#">Webcams</a>
+                                </div>
+                            </div>
+
+                            <div class="category-row">
+                                <div class="category-label">Accessories / Other</div>
+                                <div class="category-items">
+                                    <a href="#">Case Accessories</a>
+                                    <a href="#">Case Fans</a>
+                                    <a href="#">Fan Controllers</a>
+                                    <a href="#">Thermal Compound</a>
+                                    <a href="#">External Storage</a>
+                                    <a href="#">Optical Drives</a>
+                                    <a href="#">UPS Systems</a>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
+
+                    <div id="products_total_price"></div>
+
+                    <div id="checkoutWrapper" style="margin-top: 30px; text-align: right;">
+                        <button id="checkoutAllBtn"
+                            style="padding: 12px 24px; background: #ff9900; color: #fff; font-weight: bold; font-size: 16px; border: none; border-radius: 8px; cursor: pointer;">
+                            Checkout All on Amazon
+                        </button>
+                    </div>
+
                 </div>
 
-                <div id="products_total_price"></div>
+                <div id="tab2" class="tab-content">
+                    <div class="cardContiner" id="overviewContainer">
+                        <!-- Selected product images will be injected here -->
+                    </div>
 
-                <div id="checkoutWrapper" style="margin-top: 30px; text-align: right;">
-                    <button id="checkoutAllBtn"
-                        style="padding: 12px 24px; background: #ff9900; color: #fff; font-weight: bold; font-size: 16px; border: none; border-radius: 8px; cursor: pointer;">
-                        Checkout All on Amazon
-                    </button>
+                    <!-- Add this new div for product details -->
+                    <div id="overviewProductDetails" style="margin-top: 30px;"></div>
                 </div>
 
-            </div>
-
-            <div id="tab2" class="tab-content">
-                <div class="cardContiner" id="overviewContainer">
-                    <!-- Selected product images will be injected here -->
-                </div>
-
-                <!-- Add this new div for product details -->
-                <div id="overviewProductDetails" style="margin-top: 30px;"></div>
             </div>
 
         </div>
-
-    </div>
 
     </div>
 </section>
@@ -960,9 +984,9 @@ function showProductDetails(category) {
             formattedKey
         } < /td> <
     td style = "padding: 6px 10px; color: #222;" > $ {
-            val
-        } < /td> < /
-        tr >
+        val
+    } < /td> < /
+    tr >
         `;
               }).join('')
             }
