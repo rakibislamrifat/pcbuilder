@@ -149,11 +149,31 @@ function aawp_pcbuild_display_parts_headphones($atts) {
                         <th class="sortable-header" data-key="name">
                             <span class="sort-header-label"><span class="sort-arrow">&#9654;</span> Name</span>
                         </th>
-                        <th class="sortable-header" data-key="core_count">
+                        <th class="sortable-header" data-key="type">
                             <span class="sort-header-label">
-                                <span class="sort-arrow">&#9654;</span> Interface
+                                <span class="sort-arrow">&#9654;</span> Type
                             </span>
                         </th>
+                        <th class="sortable-header" data-key="frequency_response">
+                            <span class="sort-header-label">Frequency Response</span>
+                            <span class="sort-arrow">&#9654;</span>
+                        </th>
+
+                        <th class="sortable-header" data-key="microphone">
+                            <span class="sort-header-label">Microphone</span>
+                            <span class="sort-arrow">&#9654;</span>
+                        </th>
+
+                        <th class="sortable-header" data-key="wireless">
+                            <span class="sort-header-label">Wireless</span>
+                            <span class="sort-arrow">&#9654;</span>
+                        </th>
+
+                        <th class="sortable-header" data-key="enclosure_type">
+                            <span class="sort-header-label">Enclosure Type</span>
+                            <span class="sort-arrow">&#9654;</span>
+                        </th>
+
                         <th class="sortable-header" data-key="color">
                             <span class="sort-header-label">Color</span>
                             <span class="sort-arrow">&#9654;</span>
@@ -177,98 +197,76 @@ function aawp_pcbuild_display_parts_headphones($atts) {
                 <?php include('rating-count.php'); ?>
                 <tbody>
                     <?php foreach ($display_items as $index => $item):
-    $row_bg = ($index % 2 === 0) ? '#d4d4d4' : '#ebebeb';
-    $asin = $item['ASIN'] ?? '';
-    $full_title = $item['ItemInfo']['Title']['DisplayValue'] ?? 'Unknown Product';
-    $title = esc_html(implode(' ', array_slice(explode(' ', $full_title), 0, 4)));
-    $raw_title = esc_attr($full_title);
-    $image = $item['Images']['Primary']['Large']['URL'] ??
-             $item['Images']['Primary']['Medium']['URL'] ??
-             $item['Images']['Primary']['Small']['URL'] ?? '';
-    $raw_image = esc_url($image);
-    $price = $item['Offers']['Listings'][0]['Price']['DisplayAmount'] ?? 'N/A';
-    $base_price = $price;
-    $availability = $item['Offers']['Listings'][0]['Availability']['Message'] ?? '—';
-    $product_url = $item['DetailPageURL'] ?? '#';
-    $features = $item['ItemInfo']['Features']['DisplayValues'] ?? [];
-    $features_string = implode(' ', $features);
-    $manufacturer = $item['ItemInfo']['ByLineInfo']['Manufacturer']['DisplayValue'] ?? 'Unknown';
-    $color = $item['ItemInfo']['ProductInfo']['Color']['DisplayValue'] ?? '-';
+        $row_bg = ($index % 2 === 0) ? '#d4d4d4' : '#ebebeb';
+        $asin = $item['ASIN'] ?? '';
+        $full_title = $item['ItemInfo']['Title']['DisplayValue'] ?? 'Unknown Product';
+        $title = esc_html(implode(' ', array_slice(explode(' ', $full_title), 0, 4)));
+        $raw_title = esc_attr($full_title);
+        $image = $item['Images']['Primary']['Large']['URL'] ??
+                $item['Images']['Primary']['Medium']['URL'] ?? 
+                $item['Images']['Primary']['Small']['URL'] ?? '';
+        $raw_image = esc_url($image);
+        $price = $item['Offers']['Listings'][0]['Price']['DisplayAmount'] ?? 'N/A';
+        $base_price = $price;
+        $availability = $item['Offers']['Listings'][0]['Availability']['Message'] ?? '—';
+        $product_url = $item['DetailPageURL'] ?? '#';
+        $features = $item['ItemInfo']['Features']['DisplayValues'] ?? [];
+        $features_string = implode(' ', $features);
+        $manufacturer = $item['ItemInfo']['ByLineInfo']['Manufacturer']['DisplayValue'] ?? 'Unknown';
+        $color = $item['ItemInfo']['ProductInfo']['Color']['DisplayValue'] ?? '-';
 
-    // Detect Interface (USB, PCIe, etc.)
-    $interface = '-';
-    foreach ($features as $feature) {
-        if (preg_match('/(USB[\s\-]?(2\.0|3\.0|C)|PCI[\s\-]?[Ee]?)/i', $feature, $match)) {
-            $interface = strtoupper(trim($match[0]));
-            break;
-        }
-    }
+        // Extracting features for specific columns
+        $interface = '-';
+        $frequency_response = '-';
+        $microphone = '-';
+        $wireless = '-';
+        $enclosure_type = '-';
 
-    $ports = '-';
-    $port_candidates = [];
-    
-    foreach ($features as $feature) {
-        if (preg_match_all('~(?:(\d+)\s*[xX]\s*)?(\d+(\.\d+)?)(?:\s*)(Gbps|Gb/s|Mbps|Mb/s)~i', $feature, $matches, PREG_SET_ORDER)) {
-            foreach ($matches as $m) {
-                $count = !empty($m[1]) ? (int)$m[1] : 1;
-                $speed = (float)$m[2];
-                if ($speed <= 0) continue; // ✅ Prevent garbage like 1 × 0 Mb/s
-    
-                $unit = strtolower($m[4]);
-    
-                // Normalize to Gb/s
-                if (strpos($unit, 'mb') === 0 && $speed >= 1000) {
-                    $speed /= 1000;
-                    $unit = 'Gb/s';
-                } elseif (strpos($unit, 'mb') !== false) {
-                    $unit = 'Mb/s';
-                } else {
-                    $unit = 'Gb/s';
-                }
-    
-                // Normalize for sorting (convert all to Mbps)
-                $normalized_mbps = $unit === 'Gb/s' ? $speed * 1000 : $speed;
-    
-                $port_candidates[] = [
-                    'label' => "{$count} × " . rtrim(rtrim(number_format($speed, 2), '0'), '.') . " {$unit}",
-                    'sort' => $normalized_mbps
-                ];
+        // Look for relevant data in the features
+        foreach ($features as $feature) {
+            if (preg_match('/(USB[\s\-]?(2\.0|3\.0|C)|PCI[\s\-]?[Ee]?)/i', $feature, $match)) {
+                $interface = strtoupper(trim($match[0]));
+            }
+
+            if (preg_match('/\d{1,2}-\d{1,3}Hz/i', $feature)) {
+                $frequency_response = $feature;
+            }
+
+            if (stripos($feature, 'microphone') !== false) {
+                $microphone = 'Yes';
+            }
+
+            if (stripos($feature, 'wireless') !== false) {
+                $wireless = 'Yes';
+            }
+
+            if (stripos($feature, 'enclosure') !== false) {
+                $enclosure_type = $feature;
             }
         }
-    }
-    
-    if (!empty($port_candidates)) {
-        usort($port_candidates, fn($a, $b) => $b['sort'] <=> $a['sort']);
-        $ports = $port_candidates[0]['label']; // 🥇 Highest-speed clean port
-    }
-    
 
-    
-    
-
-
-    $sellerCount = $item['Offers']['Listings'][0]['MerchantInfo']['FeedbackCount'] ?? 'Unknown';
-    $sellerRating = $item['Offers']['Listings'][0]['MerchantInfo']['FeedbackRating'] ?? 'Unknown';
-    $rating_count = display_rating_and_count($sellerRating, $sellerCount);
-?>
+        // Seller info
+        $sellerCount = $item['Offers']['Listings'][0]['MerchantInfo']['FeedbackCount'] ?? 'Unknown';
+        $sellerRating = $item['Offers']['Listings'][0]['MerchantInfo']['FeedbackRating'] ?? 'Unknown';
+        $rating_count = display_rating_and_count($sellerRating, $sellerCount);
+    ?>
                     <tr class="product-row" style="background-color: <?php echo $row_bg; ?>">
                         <td style="padding: 10px 0 10px 10px; width: 150px!important" title="<?php echo $raw_title; ?>">
                             <img src="<?php echo $raw_image; ?>" alt="<?php echo $title; ?>"
                                 style="width:125px; height:125px; border-radius:4px;" />
                         </td>
                         <td style="font-weight:800;"><?php echo $title; ?></td>
-                        <td class="interface-cell" style="padding:10px;"><?php echo esc_html($interface); ?></td>
-                        <td class="color-cell" style="padding:10px;"><?php echo esc_html($color); ?></td>
+                        <td style="padding:10px;"><?php echo esc_html($interface); ?></td>
+                        <td style="padding:10px;"><?php echo esc_html($frequency_response); ?></td>
+                        <td style="padding:10px;"><?php echo esc_html($microphone); ?></td>
+                        <td style="padding:10px;"><?php echo esc_html($wireless); ?></td>
+                        <td style="padding:10px;"><?php echo esc_html($enclosure_type); ?></td>
+                        <td style="padding:10px;"><?php echo esc_html($color); ?></td>
                         <td style="padding:10px;"
                             data-rating="<?php echo isset($sellerRating) ? esc_attr($sellerRating) : ''; ?>">
-                            <?php echo $rating_count; ?></td>
-                        <td class="price-cell" style="padding:10px;"><?php echo esc_html($price); ?></td>
-                        <td class="ports-cell" style="padding:0; margin:0; border:0; width:0; font-size:0;">
-                            <span style="display:none;"><?php echo esc_html($ports); ?></span>
+                            <?php echo $rating_count; ?>
                         </td>
-
-
-
+                        <td class="price-cell" style="padding:10px;"><?php echo esc_html($price); ?></td>
                         <td style="padding:10px;">
                             <button class="add-to-builder" data-asin="<?php echo esc_attr($asin); ?>"
                                 data-title="<?php echo esc_attr($full_title); ?>"
@@ -288,6 +286,7 @@ function aawp_pcbuild_display_parts_headphones($atts) {
                     </tr>
                     <?php endforeach; ?>
                 </tbody>
+
 
             </table>
 
