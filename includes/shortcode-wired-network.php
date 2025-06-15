@@ -198,7 +198,7 @@ function aawp_pcbuild_display_parts_wired_network($atts) {
                         <td style="padding:10px;"
                             data-rating="<?php echo isset($sellerRating) ? esc_attr($sellerRating) : ''; ?>">
                             <?php echo $rating_count; ?></td>
-                        <td style="padding:10px;"><?php echo esc_html($price); ?></td>
+                        <td class="price-cell" style="padding:10px;"><?php echo esc_html($price); ?></td>
                         <td style="padding:10px;">
                             <button class="add-to-builder" data-asin="<?php echo esc_attr($asin); ?>"
                                 data-title="<?php echo esc_attr($full_title); ?>"
@@ -1121,7 +1121,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 <script>
-//PRICE FILTERING
+// PRICE FILTERING
 document.addEventListener("DOMContentLoaded", function() {
     const table = document.getElementById("pcbuild-table");
     const sliderContainer = document.getElementById("price-slider");
@@ -1132,8 +1132,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const rows = Array.from(table.querySelectorAll("tbody tr"));
     const prices = rows.map(row => {
-        const priceText = row.querySelector("td:nth-child(7)")?.textContent.replace(/[^0-9.]/g, '') ||
-            "0";
+        const priceText = row.querySelector(".price-cell")?.textContent.replace(/[^0-9.]/g, '') || "0";
         return parseFloat(priceText) || 0;
     });
 
@@ -1146,11 +1145,11 @@ document.addEventListener("DOMContentLoaded", function() {
     minLabel.textContent = `$${minPrice}`;
     maxLabel.textContent = `$${maxPrice}`;
 
-    // Create 2 sliders
+    // Create sliders
     sliderContainer.innerHTML = `
-            <input type="range" class="min-range-bg" id="min-price" min="${minPrice}" max="${maxPrice}" value="${minPrice}" step="1" style="width: 100%;">
-            <input type="range" class="max-range-bg" id="max-price" min="${minPrice}" max="${maxPrice}" value="${maxPrice}" step="1" style="width: 100%; margin-top: 10px;">
-        `;
+        <input type="range" class="min-range-bg" id="min-price" min="${minPrice}" max="${maxPrice}" value="${minPrice}" step="1" style="width: 100%;">
+        <input type="range" class="max-range-bg" id="max-price" min="${minPrice}" max="${maxPrice}" value="${maxPrice}" step="1" style="width: 100%; margin-top: 10px;">
+    `;
 
     const minSlider = document.getElementById("min-price");
     const maxSlider = document.getElementById("max-price");
@@ -1163,44 +1162,35 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function filterByPrice() {
-        const minVal = parseFloat(minSlider.value);
-        const maxVal = parseFloat(maxSlider.value);
-        currentMin = minVal;
-        currentMax = maxVal;
+        let minVal = parseFloat(minSlider.value);
+        let maxVal = parseFloat(maxSlider.value);
+
+        // Fix issue: If sliders overlap
+        if (minVal > maxVal)[minVal, maxVal] = [maxVal, minVal];
 
         minLabel.textContent = `$${minVal}`;
         maxLabel.textContent = `$${maxVal}`;
 
         rows.forEach(row => {
-            const priceText = row.querySelector("td:nth-child(7)")?.textContent.replace(/[^0-9.]/g,
-                '') || "0";
+            const priceText = row.querySelector(".price-cell")?.textContent.replace(/[^0-9.]/g, '') ||
+                "0";
             const price = parseFloat(priceText) || 0;
 
             row.style.display = (price >= minVal && price <= maxVal) ? "" : "none";
         });
 
-        // Apply zebra striping after filtering
         applyZebraStriping();
     }
 
-    minSlider.addEventListener("input", () => {
-        if (parseFloat(minSlider.value) > parseFloat(maxSlider.value)) {
-            minSlider.value = maxSlider.value;
-        }
-        filterByPrice();
-    });
+    // Handle slider input
+    minSlider.addEventListener("input", filterByPrice);
+    maxSlider.addEventListener("input", filterByPrice);
 
-    maxSlider.addEventListener("input", () => {
-        if (parseFloat(maxSlider.value) < parseFloat(minSlider.value)) {
-            maxSlider.value = minSlider.value;
-        }
-        filterByPrice();
-    });
-
-    // Initial filter apply
-    filterByPrice();
+    // Initial filter after slight delay to allow rendering
+    setTimeout(filterByPrice, 50);
 });
 </script>
+
 
 <script>
 // SORTING LOGIC
