@@ -204,33 +204,46 @@ function aawp_pcbuild_display_parts_wired_network($atts) {
         }
     }
 
-    // Load ports value
-    $ports = '-'; // default
-    $port_matches = [];
+    $ports = '-';
+    $port_candidates = [];
     
     foreach ($features as $feature) {
-        if (preg_match_all('~(?:(\d+)\s*[xX]\s*)?(\d+(\.\d+)?)(?:\s*)?(Gbps|Gb/s|Mbps|Mb/s)~i', $feature, $matches, PREG_SET_ORDER)) {
-            foreach ($matches as $match) {
-                $count = !empty($match[1]) ? intval($match[1]) : 1;
-                $speed = floatval($match[2]);
-                $unit = strtolower($match[4]);
+        if (preg_match_all('~(?:(\d+)\s*[xX]\s*)?(\d+(\.\d+)?)(?:\s*)(Gbps|Gb/s|Mbps|Mb/s)~i', $feature, $matches, PREG_SET_ORDER)) {
+            foreach ($matches as $m) {
+                $count = !empty($m[1]) ? (int)$m[1] : 1;
+                $speed = (float)$m[2];
+                if ($speed <= 0) continue; // ✅ Prevent garbage like 1 × 0 Mb/s
     
+                $unit = strtolower($m[4]);
+    
+                // Normalize to Gb/s
                 if (strpos($unit, 'mb') === 0 && $speed >= 1000) {
-                    $speed = $speed / 1000;
+                    $speed /= 1000;
                     $unit = 'Gb/s';
-                } elseif (strpos($unit, 'gb') === 0) {
+                } elseif (strpos($unit, 'mb') !== false) {
+                    $unit = 'Mb/s';
+                } else {
                     $unit = 'Gb/s';
                 }
     
-                $formatted = "{$count} x {$speed} {$unit}";
-                $port_matches[] = $formatted;
+                // Normalize for sorting (convert all to Mbps)
+                $normalized_mbps = $unit === 'Gb/s' ? $speed * 1000 : $speed;
+    
+                $port_candidates[] = [
+                    'label' => "{$count} × " . rtrim(rtrim(number_format($speed, 2), '0'), '.') . " {$unit}",
+                    'sort' => $normalized_mbps
+                ];
             }
         }
     }
     
-    if (!empty($port_matches)) {
-        $ports = implode(', ', array_unique($port_matches));
+    if (!empty($port_candidates)) {
+        usort($port_candidates, fn($a, $b) => $b['sort'] <=> $a['sort']);
+        $ports = $port_candidates[0]['label']; // 🥇 Highest-speed clean port
     }
+    
+
+    
     
 
 
@@ -914,7 +927,18 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 <script>
-// Interface filtering
+// Normalize interface names (e.g., "PCI E", "PCI-E" → "PCIe")
+function normalizeInterfaceName(raw) {
+    const val = raw.trim().toUpperCase();
+
+    if (/^PCI[\s\-]?E$/i.test(val) || val === 'PCIE') return 'PCIe';
+    if (/^USB[\s\-]?C$/i.test(val)) return 'USB-C';
+    if (/^USB[\s\-]?2\.0$/i.test(val)) return 'USB 2.0';
+    if (/^USB[\s\-]?3\.0$/i.test(val)) return 'USB 3.0';
+
+    return raw.trim();
+}
+
 document.addEventListener("DOMContentLoaded", function() {
     const table = document.getElementById("pcbuild-table");
     const tableRows = table.querySelectorAll("tbody tr");
@@ -924,13 +948,14 @@ document.addEventListener("DOMContentLoaded", function() {
     const VISIBLE_COUNT = 4;
     let expanded = false;
 
-    // Step 1: Collect all unique interface types from table
+    // Step 1: Collect and normalize all unique interface types
     tableRows.forEach(row => {
-        const iface = row.querySelector(".interface-cell")?.textContent.trim() || '-';
+        const rawIface = row.querySelector(".interface-cell")?.textContent || '-';
+        const iface = normalizeInterfaceName(rawIface);
         interfaceSet.add(iface);
     });
 
-    const interfaces = Array.from(interfaceSet).sort(); // Sort alphabetically
+    const interfaces = Array.from(interfaceSet).sort(); // Alphabetical
     const checkboxElements = [];
 
     // Step 2: Create checkboxes
@@ -950,7 +975,7 @@ document.addEventListener("DOMContentLoaded", function() {
         filterContainer.appendChild(el);
     });
 
-    // Step 4: Add Show More/Show Less
+    // Step 4: Add Show More / Show Less
     const toggleLink = document.createElement("a");
     toggleLink.href = "#";
     toggleLink.textContent = "Show more";
@@ -960,12 +985,12 @@ document.addEventListener("DOMContentLoaded", function() {
     toggleLink.style.color = "#0066cc";
     filterContainer.appendChild(toggleLink);
 
-    // Step 5: Create "All" Checkbox
+    // Step 5: "All" Checkbox
     const allCheckbox = document.createElement("label");
     allCheckbox.innerHTML = `<input type="checkbox" id="interface-all" checked> All`;
     filterContainer.insertBefore(allCheckbox, filterContainer.firstChild);
 
-    // Zebra stripe helper
+    // Zebra striping
     function applyZebraStriping() {
         const visibleRows = Array.from(table.querySelectorAll("tbody tr"))
             .filter(row => row.style.display !== "none");
@@ -974,14 +999,15 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // Step 6: Apply interface filtering
+    // Step 6: Filtering logic
     function applyInterfaceFilter() {
         const selected = Array.from(document.querySelectorAll("input[name='interface']:checked"))
             .map(cb => cb.value);
         const isAll = document.getElementById("interface-all").checked;
 
         tableRows.forEach(row => {
-            const iface = row.querySelector(".interface-cell")?.textContent.trim() || '-';
+            const rawIface = row.querySelector(".interface-cell")?.textContent || '-';
+            const iface = normalizeInterfaceName(rawIface);
             const show = isAll || selected.includes(iface);
             row.style.display = show ? "" : "none";
         });
@@ -990,28 +1016,28 @@ document.addEventListener("DOMContentLoaded", function() {
         applyZebraStriping();
     }
 
-    // Update "All" checkbox
+    // Update "All" checkbox status
     function updateAllCheckboxState() {
         const allBoxes = Array.from(document.querySelectorAll("input[name='interface']"));
         const checkedBoxes = allBoxes.filter(cb => cb.checked);
         document.getElementById("interface-all").checked = (checkedBoxes.length === allBoxes.length);
     }
 
-    // "All" toggle
+    // All toggle
     document.getElementById("interface-all").addEventListener("change", function() {
         const allBoxes = document.querySelectorAll("input[name='interface']");
         allBoxes.forEach(cb => cb.checked = this.checked);
         applyInterfaceFilter();
     });
 
-    // Individual interface checkbox change
+    // Individual checkbox toggle
     filterContainer.addEventListener("change", function(e) {
         if (e.target.name === "interface") {
             applyInterfaceFilter();
         }
     });
 
-    // Show more / less logic
+    // Show more/less toggler
     toggleLink.addEventListener("click", function(e) {
         e.preventDefault();
         expanded = !expanded;
@@ -1025,10 +1051,11 @@ document.addEventListener("DOMContentLoaded", function() {
         toggleLink.textContent = expanded ? "Show less" : "Show more";
     });
 
-    // Initial filter
+    // Step 7: Initial filter apply
     applyInterfaceFilter();
 });
 </script>
+
 
 
 
