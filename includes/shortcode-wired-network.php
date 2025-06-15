@@ -101,7 +101,28 @@ function aawp_pcbuild_display_parts_wired_network($atts) {
                     <strong>INTERFACE</strong>
                     <button class="filter-toggle">−</button>
                 </div>
-                <div class="filter-options" id="socket-filter">
+                <div class="filter-options" id="interface-filter">
+                    <!-- Filters will be injected here -->
+                </div>
+            </div>
+
+
+            <div class="filter-group" style="margin-bottom: 20px; margin-top:20px;">
+                <div class="filter-header">
+                    <strong>PORTS</strong>
+                    <button class="filter-toggle">−</button>
+                </div>
+                <div class="filter-options" id="ports-filter">
+                    <!-- Filters will be injected here -->
+                </div>
+            </div>
+
+            <div class="filter-group" style="margin-bottom: 20px; margin-top:20px;">
+                <div class="filter-header">
+                    <strong>COLOR</strong>
+                    <button class="filter-toggle">−</button>
+                </div>
+                <div class="filter-options" id="color-filter">
                     <!-- Filters will be injected here -->
                 </div>
             </div>
@@ -149,7 +170,7 @@ function aawp_pcbuild_display_parts_wired_network($atts) {
                                 <span class="sort-arrow">&#9654;</span> Price
                             </span>
                         </th>
-                        <th style="padding:10px;">Action</th>
+                        <th style="padding:10px;" colspan="2">Action</th>
                     </tr>
                 </thead>
 
@@ -183,6 +204,36 @@ function aawp_pcbuild_display_parts_wired_network($atts) {
         }
     }
 
+    // Load ports value
+    $ports = '-'; // default
+    $port_matches = [];
+    
+    foreach ($features as $feature) {
+        if (preg_match_all('~(?:(\d+)\s*[xX]\s*)?(\d+(\.\d+)?)(?:\s*)?(Gbps|Gb/s|Mbps|Mb/s)~i', $feature, $matches, PREG_SET_ORDER)) {
+            foreach ($matches as $match) {
+                $count = !empty($match[1]) ? intval($match[1]) : 1;
+                $speed = floatval($match[2]);
+                $unit = strtolower($match[4]);
+    
+                if (strpos($unit, 'mb') === 0 && $speed >= 1000) {
+                    $speed = $speed / 1000;
+                    $unit = 'Gb/s';
+                } elseif (strpos($unit, 'gb') === 0) {
+                    $unit = 'Gb/s';
+                }
+    
+                $formatted = "{$count} x {$speed} {$unit}";
+                $port_matches[] = $formatted;
+            }
+        }
+    }
+    
+    if (!empty($port_matches)) {
+        $ports = implode(', ', array_unique($port_matches));
+    }
+    
+
+
     $sellerCount = $item['Offers']['Listings'][0]['MerchantInfo']['FeedbackCount'] ?? 'Unknown';
     $sellerRating = $item['Offers']['Listings'][0]['MerchantInfo']['FeedbackRating'] ?? 'Unknown';
     $rating_count = display_rating_and_count($sellerRating, $sellerCount);
@@ -193,12 +244,18 @@ function aawp_pcbuild_display_parts_wired_network($atts) {
                                 style="width:125px; height:125px; border-radius:4px;" />
                         </td>
                         <td style="font-weight:800;"><?php echo $title; ?></td>
-                        <td style="padding:10px;"><?php echo esc_html($interface); ?></td>
-                        <td style="padding:10px;"><?php echo esc_html($color); ?></td>
+                        <td class="interface-cell" style="padding:10px;"><?php echo esc_html($interface); ?></td>
+                        <td class="color-cell" style="padding:10px;"><?php echo esc_html($color); ?></td>
                         <td style="padding:10px;"
                             data-rating="<?php echo isset($sellerRating) ? esc_attr($sellerRating) : ''; ?>">
                             <?php echo $rating_count; ?></td>
                         <td class="price-cell" style="padding:10px;"><?php echo esc_html($price); ?></td>
+                        <td class="ports-cell" style="padding:0; margin:0; border:0; width:0; font-size:0;">
+                            <span style="display:none;"><?php echo esc_html($ports); ?></span>
+                        </td>
+
+
+
                         <td style="padding:10px;">
                             <button class="add-to-builder" data-asin="<?php echo esc_attr($asin); ?>"
                                 data-title="<?php echo esc_attr($full_title); ?>"
@@ -636,488 +693,12 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const table = document.getElementById("pcbuild-table");
-    const filterContainer = document.getElementById("socket-filter");
 
-    if (!table || !filterContainer) return;
 
-    const rows = Array.from(table.querySelectorAll("tbody tr"));
-    const socketSet = new Set();
 
-    const VISIBLE_COUNT = 4;
-    let expanded = false;
-    const checkboxElements = [];
 
-    // Extract unique socket values from data attributes
-    rows.forEach(row => {
-        const btn = row.querySelector(".add-to-builder");
-        const socket = btn?.getAttribute("data-socket")?.trim();
-        if (socket) socketSet.add(socket);
-    });
 
-    const socketList = Array.from(socketSet).sort();
 
-    // "All" checkbox
-    const allCheckboxWrapper = document.createElement("label");
-    allCheckboxWrapper.style.display = "block";
-    allCheckboxWrapper.innerHTML = `
-        <input type="checkbox" class="socket-checkbox" value="all" checked>
-        All
-    `;
-    filterContainer.appendChild(allCheckboxWrapper);
-
-    const allCheckbox = () => filterContainer.querySelector(".socket-checkbox[value='all']");
-
-    // Create individual checkboxes
-    socketList.forEach((socket, index) => {
-        const label = document.createElement("label");
-        label.style.display = index >= VISIBLE_COUNT ? "none" : "block";
-        label.innerHTML = `
-            <input type="checkbox" class="socket-checkbox" value="${socket}" checked>
-            ${socket}
-        `;
-        checkboxElements.push(label);
-        filterContainer.appendChild(label);
-    });
-
-    // Show more / Show less link
-    const toggleLink = document.createElement("a");
-    toggleLink.href = "#";
-    toggleLink.textContent = "Show more";
-    toggleLink.style.display = (checkboxElements.length > VISIBLE_COUNT) ? "inline-block" : "none";
-    toggleLink.style.marginTop = "5px";
-    toggleLink.style.fontSize = "14px";
-    toggleLink.style.color = "#0066cc";
-    filterContainer.appendChild(toggleLink);
-
-    function zebraStriping() {
-        let visibleRows = rows.filter(row => row.style.display !== "none");
-        visibleRows.forEach((row, index) => {
-            row.style.backgroundColor = index % 2 === 0 ? "#d4d4d4" : "#ebebeb";
-        });
-    }
-
-    function checkboxes() {
-        return filterContainer.querySelectorAll(".socket-checkbox");
-    }
-
-    function filterBySocket() {
-        const selected = Array.from(checkboxes())
-            .filter(cb => cb.checked && cb.value !== "all")
-            .map(cb => cb.value);
-
-        if (allCheckbox().checked || selected.length === 0) {
-            rows.forEach(row => row.style.display = "");
-        } else {
-            rows.forEach(row => {
-                const btn = row.querySelector(".add-to-builder");
-                const socket = btn?.getAttribute("data-socket")?.trim();
-                row.style.display = selected.includes(socket) ? "" : "none";
-            });
-        }
-
-        zebraStriping();
-    }
-
-    filterContainer.addEventListener("change", function(e) {
-        const target = e.target;
-
-        if (target.value === "all") {
-            checkboxes().forEach(cb => {
-                if (cb.value !== "all") cb.checked = target.checked;
-            });
-        } else {
-            allCheckbox().checked = false;
-        }
-
-        filterBySocket();
-    });
-
-    toggleLink.addEventListener("click", function(e) {
-        e.preventDefault();
-        expanded = !expanded;
-
-        checkboxElements.forEach((el, index) => {
-            el.style.display = expanded || index < VISIBLE_COUNT ? "block" : "none";
-        });
-
-        toggleLink.textContent = expanded ? "Show less" : "Show more";
-    });
-
-    // Initial render
-    filterBySocket();
-});
-</script>
-
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const table = document.getElementById("pcbuild-table");
-    const tableRows = table.querySelectorAll("tbody tr");
-    const filterContainer = document.getElementById("microarchitecture-filter");
-    const microSet = new Set();
-
-    const VISIBLE_COUNT = 4; // How many to show initially
-    let expanded = false;
-
-    // Collect unique microarchitectures
-    tableRows.forEach(row => {
-        const micro = row.querySelector("td:nth-child(6)")?.textContent.trim();
-        if (micro) microSet.add(micro);
-    });
-
-    const micros = Array.from(microSet).sort();
-    const checkboxElements = [];
-
-    // Create "All" checkbox
-    const allLabel = document.createElement("label");
-    allLabel.innerHTML = `<input type="checkbox" class="micro-checkbox" value="all" checked> All`;
-    allLabel.style.display = "block";
-    filterContainer.appendChild(allLabel);
-
-    // Create microarchitecture checkboxes
-    micros.forEach((micro, index) => {
-        const label = document.createElement("label");
-        label.innerHTML =
-            `<input type="checkbox" class="micro-checkbox" value="${micro}" checked> ${micro}`;
-        label.style.display = index >= VISIBLE_COUNT ? "none" : "block";
-        filterContainer.appendChild(label);
-        checkboxElements.push(label);
-    });
-
-    // Show more/less toggle
-    const toggleLink = document.createElement("a");
-    toggleLink.href = "#";
-    toggleLink.textContent = "Show more";
-    toggleLink.style.display = (checkboxElements.length > VISIBLE_COUNT) ? "inline-block" : "none";
-    toggleLink.style.marginTop = "5px";
-    toggleLink.style.fontSize = "14px";
-    toggleLink.style.color = "#0066cc";
-    filterContainer.appendChild(toggleLink);
-
-    toggleLink.addEventListener("click", function(e) {
-        e.preventDefault();
-        expanded = !expanded;
-        checkboxElements.forEach((el, index) => {
-            el.style.display = index >= VISIBLE_COUNT ? (expanded ? "block" : "none") : "block";
-        });
-        toggleLink.textContent = expanded ? "Show less" : "Show more";
-    });
-
-    // Helpers
-    const checkboxes = () => filterContainer.querySelectorAll(".micro-checkbox");
-    const allCheckbox = () => filterContainer.querySelector(".micro-checkbox[value='all']");
-
-    function applyZebraStriping() {
-        const visibleRows = Array.from(table.querySelectorAll("tbody tr")).filter(row => row.style.display !==
-            "none");
-        visibleRows.forEach((row, index) => {
-            row.style.backgroundColor = (index % 2 === 0) ? "#d4d4d4" : "#ebebeb";
-        });
-    }
-
-    function applyMicroFilter() {
-        const selected = Array.from(checkboxes())
-            .filter(cb => cb.checked && cb.value !== "all")
-            .map(cb => cb.value);
-
-        if (allCheckbox().checked || selected.length === 0) {
-            tableRows.forEach(row => row.style.display = "");
-        } else {
-            tableRows.forEach(row => {
-                const micro = row.querySelector("td:nth-child(6)")?.textContent.trim();
-                row.style.display = selected.includes(micro) ? "" : "none";
-            });
-        }
-
-        applyZebraStriping();
-    }
-
-    // Handle checkbox changes
-    filterContainer.addEventListener("change", function(e) {
-        const target = e.target;
-
-        const allBox = allCheckbox();
-        const allBoxes = Array.from(checkboxes());
-        const individualBoxes = allBoxes.filter(cb => cb.value !== "all");
-
-        if (target.value === "all") {
-            // Master switch logic
-            const checked = target.checked;
-            individualBoxes.forEach(cb => cb.checked = checked);
-        } else {
-            // Individual toggles remove "All" if any is unchecked
-            allBox.checked = individualBoxes.every(cb => cb.checked);
-        }
-
-        applyMicroFilter();
-    });
-
-
-    // Initial filter
-    applyMicroFilter();
-});
-</script>
-
-
-<script>
-// BOOST CLOCK RANGE SLIDER FILTER with Zebra Striping
-document.addEventListener("DOMContentLoaded", function() {
-    const table = document.getElementById("pcbuild-table");
-    const sliderContainer = document.getElementById("boost-clock-slider");
-    const minLabel = document.getElementById("boost-clock-min-label");
-    const maxLabel = document.getElementById("boost-clock-max-label");
-
-    if (!table || !sliderContainer) return;
-
-    const rows = Array.from(table.querySelectorAll("tbody tr"));
-    const boostClocks = rows.map(row => {
-        const clockText = row.querySelector("td:nth-child(4)")?.textContent.replace(/[^\d.]/g, '') ||
-            "0";
-        return parseFloat(clockText) || 0;
-    });
-
-    const minClock = Math.floor(Math.min(...boostClocks));
-    const maxClock = Math.ceil(Math.max(...boostClocks));
-    let currentMin = minClock;
-    let currentMax = maxClock;
-
-    // Set default labels
-    minLabel.textContent = `${minClock} GHz`;
-    maxLabel.textContent = `${maxClock} GHz`;
-
-    // Create 2 sliders
-    sliderContainer.innerHTML = `
-            <input type="range" class="min-range-bg" id="min-boost-clock" min="${minClock}" max="${maxClock}" value="${minClock}" step="0.1" style="width: 100%;">
-            <input type="range" class="max-range-bg" id="max-boost-clock" min="${minClock}" max="${maxClock}" value="${maxClock}" step="0.1" style="width: 100%; margin-top: 10px;">
-        `;
-
-    const minSlider = document.getElementById("min-boost-clock");
-    const maxSlider = document.getElementById("max-boost-clock");
-
-    // Apply zebra striping to visible rows
-    function applyZebraStriping() {
-        const visibleRows = Array.from(table.querySelectorAll("tbody tr")).filter(row => row.style.display !==
-            "none");
-        visibleRows.forEach((row, index) => {
-            row.style.backgroundColor = (index % 2 === 0) ? "#d4d4d4" : "#ebebeb";
-        });
-    }
-
-    function filterByBoostClock() {
-        const minVal = parseFloat(minSlider.value);
-        const maxVal = parseFloat(maxSlider.value);
-        currentMin = minVal;
-        currentMax = maxVal;
-
-        minLabel.textContent = `${minVal} GHz`;
-        maxLabel.textContent = `${maxVal} GHz`;
-
-        rows.forEach(row => {
-            const clockText = row.querySelector("td:nth-child(4)")?.textContent.replace(/[^\d.]/g,
-                '') || "0";
-            const boostClock = parseFloat(clockText) || 0;
-
-            // Show or hide the row based on boost clock filter
-            row.style.display = (boostClock >= minVal && boostClock <= maxVal) ? "" : "none";
-        });
-
-        // Apply zebra striping to the visible rows
-        applyZebraStriping();
-    }
-
-    // Event listeners for sliders
-    minSlider.addEventListener("input", () => {
-        if (parseFloat(minSlider.value) > parseFloat(maxSlider.value)) {
-            minSlider.value = maxSlider.value;
-        }
-        filterByBoostClock();
-    });
-
-    maxSlider.addEventListener("input", () => {
-        if (parseFloat(maxSlider.value) < parseFloat(minSlider.value)) {
-            maxSlider.value = minSlider.value;
-        }
-        filterByBoostClock();
-    });
-
-    // Initial filter and zebra striping apply
-    filterByBoostClock();
-});
-</script>
-
-
-<script>
-// BASE CLOCK RANGE SLIDER FILTER with Zebra Striping
-document.addEventListener("DOMContentLoaded", function() {
-    const table = document.getElementById("pcbuild-table");
-    const sliderContainer = document.getElementById("base-clock-slider");
-    const minLabel = document.getElementById("base-clock-min-label");
-    const maxLabel = document.getElementById("base-clock-max-label");
-
-    if (!table || !sliderContainer) return;
-
-    const rows = Array.from(table.querySelectorAll("tbody tr"));
-    const baseClocks = rows.map(row => {
-        const clockText = row.querySelector("td:nth-child(3)")?.textContent.replace(/[^\d.]/g, '') ||
-            "0";
-        return parseFloat(clockText) || 0;
-    });
-
-    const minClock = Math.floor(Math.min(...baseClocks));
-    const maxClock = Math.ceil(Math.max(...baseClocks));
-    let currentMin = minClock;
-    let currentMax = maxClock;
-
-    // Set default labels
-    minLabel.textContent = `${minClock} GHz`;
-    maxLabel.textContent = `${maxClock} GHz`;
-
-    // Create 2 sliders
-    sliderContainer.innerHTML = `
-            <input type="range" class="min-range-bg" id="min-base-clock" min="${minClock}" max="${maxClock}" value="${minClock}" step="0.1" style="width: 100%;">
-            <input type="range" class="max-range-bg" id="max-base-clock" min="${minClock}" max="${maxClock}" value="${maxClock}" step="0.1" style="width: 100%; margin-top: 10px;">
-        `;
-
-    const minSlider = document.getElementById("min-base-clock");
-    const maxSlider = document.getElementById("max-base-clock");
-
-    // Apply zebra striping to visible rows
-    function applyZebraStriping() {
-        const visibleRows = Array.from(table.querySelectorAll("tbody tr")).filter(row => row.style.display !==
-            "none");
-        visibleRows.forEach((row, index) => {
-            row.style.backgroundColor = (index % 2 === 0) ? "#d4d4d4" : "#ebebeb";
-        });
-    }
-
-    function filterByBaseClock() {
-        const minVal = parseFloat(minSlider.value);
-        const maxVal = parseFloat(maxSlider.value);
-        currentMin = minVal;
-        currentMax = maxVal;
-
-        minLabel.textContent = `${minVal} GHz`;
-        maxLabel.textContent = `${maxVal} GHz`;
-
-        rows.forEach(row => {
-            const clockText = row.querySelector("td:nth-child(3)")?.textContent.replace(/[^\d.]/g,
-                '') || "0";
-            const baseClock = parseFloat(clockText) || 0;
-
-            // Show or hide the row based on base clock filter
-            row.style.display = (baseClock >= minVal && baseClock <= maxVal) ? "" : "none";
-        });
-
-        // Apply zebra striping to the visible rows
-        applyZebraStriping();
-    }
-
-    // Event listeners for sliders
-    minSlider.addEventListener("input", () => {
-        if (parseFloat(minSlider.value) > parseFloat(maxSlider.value)) {
-            minSlider.value = maxSlider.value;
-        }
-        filterByBaseClock();
-    });
-
-    maxSlider.addEventListener("input", () => {
-        if (parseFloat(maxSlider.value) < parseFloat(minSlider.value)) {
-            maxSlider.value = minSlider.value;
-        }
-        filterByBaseClock();
-    });
-
-    // Initial filter and zebra striping apply
-    filterByBaseClock();
-});
-</script>
-
-
-<script>
-// CORE COUNT RANGE SLIDER FILTER with Zebra Striping
-document.addEventListener("DOMContentLoaded", function() {
-    const table = document.getElementById("pcbuild-table");
-    const sliderContainer = document.getElementById("core-slider");
-    const minLabel = document.getElementById("core-min-label");
-    const maxLabel = document.getElementById("core-max-label");
-
-    if (!table || !sliderContainer) return;
-
-    const rows = Array.from(table.querySelectorAll("tbody tr"));
-    const coreCounts = rows.map(row => {
-        const coreText = row.querySelector("td:nth-child(3)")?.textContent.trim() || "0";
-        return parseInt(coreText) || 0;
-    });
-
-    const minCore = Math.min(...coreCounts);
-    const maxCore = Math.max(...coreCounts);
-    let currentMin = minCore;
-    let currentMax = maxCore;
-
-    // Set default labels
-    minLabel.textContent = `${minCore}`;
-    maxLabel.textContent = `${maxCore}`;
-
-    // Create 2 sliders
-    sliderContainer.innerHTML = ` 
-            <input type="range" class="min-range-bg" id="min-core" min="${minCore}" max="${maxCore}" value="${minCore}" step="1" style="width: 100%;"> 
-            <input type="range" class="max-range-bg" id="max-core" min="${minCore}" max="${maxCore}" value="${maxCore}" step="1" style="width: 100%; margin-top: 10px;"> 
-        `;
-
-    const minSlider = document.getElementById("min-core");
-    const maxSlider = document.getElementById("max-core");
-
-    // Apply zebra striping to visible rows
-    function applyZebraStriping() {
-        const visibleRows = Array.from(table.querySelectorAll("tbody tr")).filter(row => row.style.display !==
-            "none");
-        visibleRows.forEach((row, index) => {
-            row.style.backgroundColor = (index % 2 === 0) ? "#d4d4d4" : "#ebebeb";
-        });
-    }
-
-    function filterByCore() {
-        const minVal = parseInt(minSlider.value);
-        const maxVal = parseInt(maxSlider.value);
-        currentMin = minVal;
-        currentMax = maxVal;
-
-        minLabel.textContent = `${minVal}`;
-        maxLabel.textContent = `${maxVal}`;
-
-        rows.forEach(row => {
-            const coreText = row.querySelector("td:nth-child(3)")?.textContent.trim() || "0";
-            const coreCount = parseInt(coreText) || 0;
-
-            // Show or hide the row based on core count filter
-            row.style.display = (coreCount >= minVal && coreCount <= maxVal) ? "" : "none";
-        });
-
-        // Apply zebra striping to the visible rows
-        applyZebraStriping();
-    }
-
-    // Event listeners for sliders
-    minSlider.addEventListener("input", () => {
-        if (parseInt(minSlider.value) > parseInt(maxSlider.value)) {
-            minSlider.value = maxSlider.value;
-        }
-        filterByCore();
-    });
-
-    maxSlider.addEventListener("input", () => {
-        if (parseInt(maxSlider.value) < parseInt(minSlider.value)) {
-            maxSlider.value = minSlider.value;
-        }
-        filterByCore();
-    });
-
-    // Initial filter and zebra striping apply
-    filterByCore();
-});
-</script>
 
 
 <script>
@@ -1330,6 +911,362 @@ document.addEventListener("DOMContentLoaded", function() {
     setLinkState(compareSelectedBtn, false);
 });
 </script>
+
+
+<script>
+// Interface filtering
+document.addEventListener("DOMContentLoaded", function() {
+    const table = document.getElementById("pcbuild-table");
+    const tableRows = table.querySelectorAll("tbody tr");
+    const filterContainer = document.getElementById("interface-filter");
+    const interfaceSet = new Set();
+
+    const VISIBLE_COUNT = 4;
+    let expanded = false;
+
+    // Step 1: Collect all unique interface types from table
+    tableRows.forEach(row => {
+        const iface = row.querySelector(".interface-cell")?.textContent.trim() || '-';
+        interfaceSet.add(iface);
+    });
+
+    const interfaces = Array.from(interfaceSet).sort(); // Sort alphabetically
+    const checkboxElements = [];
+
+    // Step 2: Create checkboxes
+    interfaces.forEach(iface => {
+        const label = document.createElement("label");
+        label.innerHTML =
+            `<input type="checkbox" name="interface" value="${iface}" checked> ${iface}`;
+        label.style.display = 'block';
+        checkboxElements.push(label);
+    });
+
+    // Step 3: Render checkboxes
+    checkboxElements.forEach((el, index) => {
+        if (index >= VISIBLE_COUNT) {
+            el.style.display = 'none';
+        }
+        filterContainer.appendChild(el);
+    });
+
+    // Step 4: Add Show More/Show Less
+    const toggleLink = document.createElement("a");
+    toggleLink.href = "#";
+    toggleLink.textContent = "Show more";
+    toggleLink.style.display = (checkboxElements.length > VISIBLE_COUNT) ? "inline-block" : "none";
+    toggleLink.style.marginTop = "5px";
+    toggleLink.style.fontSize = "14px";
+    toggleLink.style.color = "#0066cc";
+    filterContainer.appendChild(toggleLink);
+
+    // Step 5: Create "All" Checkbox
+    const allCheckbox = document.createElement("label");
+    allCheckbox.innerHTML = `<input type="checkbox" id="interface-all" checked> All`;
+    filterContainer.insertBefore(allCheckbox, filterContainer.firstChild);
+
+    // Zebra stripe helper
+    function applyZebraStriping() {
+        const visibleRows = Array.from(table.querySelectorAll("tbody tr"))
+            .filter(row => row.style.display !== "none");
+        visibleRows.forEach((row, index) => {
+            row.style.backgroundColor = (index % 2 === 0) ? '#d4d4d4' : '#ebebeb';
+        });
+    }
+
+    // Step 6: Apply interface filtering
+    function applyInterfaceFilter() {
+        const selected = Array.from(document.querySelectorAll("input[name='interface']:checked"))
+            .map(cb => cb.value);
+        const isAll = document.getElementById("interface-all").checked;
+
+        tableRows.forEach(row => {
+            const iface = row.querySelector(".interface-cell")?.textContent.trim() || '-';
+            const show = isAll || selected.includes(iface);
+            row.style.display = show ? "" : "none";
+        });
+
+        updateAllCheckboxState();
+        applyZebraStriping();
+    }
+
+    // Update "All" checkbox
+    function updateAllCheckboxState() {
+        const allBoxes = Array.from(document.querySelectorAll("input[name='interface']"));
+        const checkedBoxes = allBoxes.filter(cb => cb.checked);
+        document.getElementById("interface-all").checked = (checkedBoxes.length === allBoxes.length);
+    }
+
+    // "All" toggle
+    document.getElementById("interface-all").addEventListener("change", function() {
+        const allBoxes = document.querySelectorAll("input[name='interface']");
+        allBoxes.forEach(cb => cb.checked = this.checked);
+        applyInterfaceFilter();
+    });
+
+    // Individual interface checkbox change
+    filterContainer.addEventListener("change", function(e) {
+        if (e.target.name === "interface") {
+            applyInterfaceFilter();
+        }
+    });
+
+    // Show more / less logic
+    toggleLink.addEventListener("click", function(e) {
+        e.preventDefault();
+        expanded = !expanded;
+
+        checkboxElements.forEach((el, index) => {
+            if (index >= VISIBLE_COUNT) {
+                el.style.display = expanded ? "block" : "none";
+            }
+        });
+
+        toggleLink.textContent = expanded ? "Show less" : "Show more";
+    });
+
+    // Initial filter
+    applyInterfaceFilter();
+});
+</script>
+
+
+
+
+<script>
+// PORTS filtering
+document.addEventListener("DOMContentLoaded", function() {
+    const table = document.getElementById("pcbuild-table");
+    const tableRows = table.querySelectorAll("tbody tr");
+    const filterContainer = document.getElementById("ports-filter");
+    const portsSet = new Set();
+
+    const VISIBLE_COUNT = 4;
+    let expanded = false;
+
+    // Step 1: Collect all unique ports values
+    tableRows.forEach(row => {
+        const port = row.querySelector(".ports-cell")?.textContent.trim() || '-';
+        portsSet.add(port);
+    });
+
+    const ports = Array.from(portsSet).sort();
+    const checkboxElements = [];
+
+    // Step 2: Build checkboxes
+    ports.forEach(port => {
+        const label = document.createElement("label");
+        label.innerHTML =
+            `<input type="checkbox" name="ports" value="${port}" checked> ${port}`;
+        label.style.display = 'block';
+        checkboxElements.push(label);
+    });
+
+    // Step 3: Render checkboxes
+    checkboxElements.forEach((el, index) => {
+        if (index >= VISIBLE_COUNT) {
+            el.style.display = 'none';
+        }
+        filterContainer.appendChild(el);
+    });
+
+    // Step 4: Add Show More/Show Less link
+    const toggleLink = document.createElement("a");
+    toggleLink.href = "#";
+    toggleLink.textContent = "Show more";
+    toggleLink.style.display = (checkboxElements.length > VISIBLE_COUNT) ? "inline-block" : "none";
+    toggleLink.style.marginTop = "5px";
+    toggleLink.style.fontSize = "14px";
+    toggleLink.style.color = "#0066cc";
+    filterContainer.appendChild(toggleLink);
+
+    // Step 5: Create "All" checkbox
+    const allCheckbox = document.createElement("label");
+    allCheckbox.innerHTML = `<input type="checkbox" id="ports-all" checked> All`;
+    filterContainer.insertBefore(allCheckbox, filterContainer.firstChild);
+
+    function applyZebraStriping() {
+        const visibleRows = Array.from(table.querySelectorAll("tbody tr"))
+            .filter(row => row.style.display !== "none");
+        visibleRows.forEach((row, index) => {
+            row.style.backgroundColor = (index % 2 === 0) ? '#d4d4d4' : '#ebebeb';
+        });
+    }
+
+    // Step 6: Filtering logic
+    function applyPortsFilter() {
+        const selected = Array.from(document.querySelectorAll("input[name='ports']:checked"))
+            .map(cb => cb.value);
+        const isAll = document.getElementById("ports-all").checked;
+
+        tableRows.forEach(row => {
+            const port = row.querySelector(".ports-cell")?.textContent.trim() || '-';
+            const show = isAll || selected.includes(port);
+            row.style.display = show ? "" : "none";
+        });
+
+        updateAllCheckboxState();
+        applyZebraStriping();
+    }
+
+    // "All" state updater
+    function updateAllCheckboxState() {
+        const allBoxes = Array.from(document.querySelectorAll("input[name='ports']"));
+        const checkedBoxes = allBoxes.filter(cb => cb.checked);
+        document.getElementById("ports-all").checked = (checkedBoxes.length === allBoxes.length);
+    }
+
+    // Handle "All" checkbox
+    document.getElementById("ports-all").addEventListener("change", function() {
+        const allBoxes = document.querySelectorAll("input[name='ports']");
+        allBoxes.forEach(cb => cb.checked = this.checked);
+        applyPortsFilter();
+    });
+
+    // Handle individual port checkbox
+    filterContainer.addEventListener("change", function(e) {
+        if (e.target.name === "ports") {
+            applyPortsFilter();
+        }
+    });
+
+    // Show more / less toggling
+    toggleLink.addEventListener("click", function(e) {
+        e.preventDefault();
+        expanded = !expanded;
+
+        checkboxElements.forEach((el, index) => {
+            if (index >= VISIBLE_COUNT) {
+                el.style.display = expanded ? "block" : "none";
+            }
+        });
+
+        toggleLink.textContent = expanded ? "Show less" : "Show more";
+    });
+
+    // Initial apply
+    applyPortsFilter();
+});
+</script>
+
+
+<script>
+// COLOR filtering
+document.addEventListener("DOMContentLoaded", function() {
+    const table = document.getElementById("pcbuild-table");
+    const tableRows = table.querySelectorAll("tbody tr");
+    const filterContainer = document.getElementById("color-filter");
+    const colorSet = new Set();
+
+    const VISIBLE_COUNT = 4;
+    let expanded = false;
+
+    // Step 1: Get unique color values
+    tableRows.forEach(row => {
+        const color = row.querySelector(".color-cell")?.textContent.trim() || '-';
+        colorSet.add(color);
+    });
+
+    const colors = Array.from(colorSet).sort();
+    const checkboxElements = [];
+
+    // Step 2: Build checkboxes
+    colors.forEach(color => {
+        const label = document.createElement("label");
+        label.innerHTML =
+            `<input type="checkbox" name="color" value="${color}" checked> ${color}`;
+        label.style.display = 'block';
+        checkboxElements.push(label);
+    });
+
+    // Step 3: Render checkboxes
+    checkboxElements.forEach((el, index) => {
+        if (index >= VISIBLE_COUNT) {
+            el.style.display = 'none';
+        }
+        filterContainer.appendChild(el);
+    });
+
+    // Step 4: Add Show More/Show Less link
+    const toggleLink = document.createElement("a");
+    toggleLink.href = "#";
+    toggleLink.textContent = "Show more";
+    toggleLink.style.display = (checkboxElements.length > VISIBLE_COUNT) ? "inline-block" : "none";
+    toggleLink.style.marginTop = "5px";
+    toggleLink.style.fontSize = "14px";
+    toggleLink.style.color = "#0066cc";
+    filterContainer.appendChild(toggleLink);
+
+    // Step 5: Add "All" checkbox
+    const allCheckbox = document.createElement("label");
+    allCheckbox.innerHTML = `<input type="checkbox" id="color-all" checked> All`;
+    filterContainer.insertBefore(allCheckbox, filterContainer.firstChild);
+
+    function applyZebraStriping() {
+        const visibleRows = Array.from(table.querySelectorAll("tbody tr"))
+            .filter(row => row.style.display !== "none");
+        visibleRows.forEach((row, index) => {
+            row.style.backgroundColor = (index % 2 === 0) ? '#d4d4d4' : '#ebebeb';
+        });
+    }
+
+    function applyColorFilter() {
+        const selected = Array.from(document.querySelectorAll("input[name='color']:checked"))
+            .map(cb => cb.value);
+        const isAll = document.getElementById("color-all").checked;
+
+        tableRows.forEach(row => {
+            const color = row.querySelector(".color-cell")?.textContent.trim() || '-';
+            const show = isAll || selected.includes(color);
+            row.style.display = show ? "" : "none";
+        });
+
+        updateAllCheckboxState();
+        applyZebraStriping();
+    }
+
+    function updateAllCheckboxState() {
+        const allBoxes = Array.from(document.querySelectorAll("input[name='color']"));
+        const checkedBoxes = allBoxes.filter(cb => cb.checked);
+        document.getElementById("color-all").checked = (checkedBoxes.length === allBoxes.length);
+    }
+
+    document.getElementById("color-all").addEventListener("change", function() {
+        const allBoxes = document.querySelectorAll("input[name='color']");
+        allBoxes.forEach(cb => cb.checked = this.checked);
+        applyColorFilter();
+    });
+
+    filterContainer.addEventListener("change", function(e) {
+        if (e.target.name === "color") {
+            applyColorFilter();
+        }
+    });
+
+    toggleLink.addEventListener("click", function(e) {
+        e.preventDefault();
+        expanded = !expanded;
+
+        checkboxElements.forEach((el, index) => {
+            if (index >= VISIBLE_COUNT) {
+                el.style.display = expanded ? "block" : "none";
+            }
+        });
+
+        toggleLink.textContent = expanded ? "Show less" : "Show more";
+    });
+
+    // Initial apply
+    applyColorFilter();
+});
+</script>
+
+
+
+
+
+
+
 
 <script>
 // Searching logic with zebra striping
