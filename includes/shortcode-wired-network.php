@@ -107,15 +107,15 @@ function aawp_pcbuild_display_parts_wired_network($atts) {
             </div>
 
 
-            <div class="filter-group" style="margin-bottom: 20px; margin-top:20px;">
+            <!-- <div class="filter-group" style="margin-bottom: 20px; margin-top:20px;">
                 <div class="filter-header">
                     <strong>PORTS</strong>
                     <button class="filter-toggle">−</button>
                 </div>
                 <div class="filter-options" id="ports-filter">
-                    <!-- Filters will be injected here -->
+                   
                 </div>
-            </div>
+            </div> -->
 
             <div class="filter-group" style="margin-bottom: 20px; margin-top:20px;">
                 <div class="filter-header">
@@ -1412,6 +1412,9 @@ document.addEventListener('DOMContentLoaded', function() {
     setupMobileView();
 });
 </script>
+
+
+
 
 <?php
     //include('parts-footer.php');
