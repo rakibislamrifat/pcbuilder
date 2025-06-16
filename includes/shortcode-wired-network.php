@@ -787,6 +787,253 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 <script>
+// PORTS filtering
+document.addEventListener("DOMContentLoaded", function() {
+    const table = document.getElementById("pcbuild-table");
+    const tableRows = table.querySelectorAll("tbody tr");
+    const filterContainer = document.getElementById("ports-filter");
+    const portsSet = new Set();
+
+    const VISIBLE_COUNT = 4;
+    let expanded = false;
+
+    // Step 1: Collect all unique ports values
+    tableRows.forEach(row => {
+        const port = row.querySelector(".ports-cell")?.textContent.trim() || '-';
+        portsSet.add(port);
+    });
+
+    const ports = Array.from(portsSet).sort();
+    const checkboxElements = [];
+
+    // Step 2: Build checkboxes
+    ports.forEach(port => {
+        const label = document.createElement("label");
+        label.innerHTML =
+            `<input type="checkbox" name="ports" value="${port}" checked> ${port}`;
+        label.style.display = 'block';
+        checkboxElements.push(label);
+    });
+
+    // Step 3: Render checkboxes
+    checkboxElements.forEach((el, index) => {
+        if (index >= VISIBLE_COUNT) {
+            el.style.display = 'none';
+        }
+        filterContainer.appendChild(el);
+    });
+
+    // Step 4: Add Show More/Show Less link
+    const toggleLink = document.createElement("a");
+    toggleLink.href = "#";
+    toggleLink.textContent = "Show more";
+    toggleLink.style.display = (checkboxElements.length > VISIBLE_COUNT) ? "inline-block" : "none";
+    toggleLink.style.marginTop = "5px";
+    toggleLink.style.fontSize = "14px";
+    toggleLink.style.color = "#0066cc";
+    filterContainer.appendChild(toggleLink);
+
+    // Step 5: Create "All" checkbox
+    const allCheckbox = document.createElement("label");
+    allCheckbox.innerHTML = `<input type="checkbox" id="ports-all" checked> All`;
+    filterContainer.insertBefore(allCheckbox, filterContainer.firstChild);
+
+    function applyZebraStriping() {
+        const visibleRows = Array.from(table.querySelectorAll("tbody tr"))
+            .filter(row => row.style.display !== "none");
+        visibleRows.forEach((row, index) => {
+            row.style.backgroundColor = (index % 2 === 0) ? '#d4d4d4' : '#ebebeb';
+        });
+    }
+
+    // Step 6: Filtering logic
+    function applyPortsFilter() {
+        const selected = Array.from(document.querySelectorAll("input[name='ports']:checked"))
+            .map(cb => cb.value);
+        const isAll = document.getElementById("ports-all").checked;
+
+        tableRows.forEach(row => {
+            const port = row.querySelector(".ports-cell")?.textContent.trim() || '-';
+            const show = isAll || selected.includes(port);
+            row.style.display = show ? "" : "none";
+        });
+
+        updateAllCheckboxState();
+        applyZebraStriping();
+    }
+
+    // "All" state updater
+    function updateAllCheckboxState() {
+        const allBoxes = Array.from(document.querySelectorAll("input[name='ports']"));
+        const checkedBoxes = allBoxes.filter(cb => cb.checked);
+        document.getElementById("ports-all").checked = (checkedBoxes.length === allBoxes.length);
+    }
+
+    // Handle "All" checkbox
+    document.getElementById("ports-all").addEventListener("change", function() {
+        const allBoxes = document.querySelectorAll("input[name='ports']");
+        allBoxes.forEach(cb => cb.checked = this.checked);
+        applyPortsFilter();
+    });
+
+    // Handle individual port checkbox
+    filterContainer.addEventListener("change", function(e) {
+        if (e.target.name === "ports") {
+            applyPortsFilter();
+        }
+    });
+
+    // Show more / less toggling
+    toggleLink.addEventListener("click", function(e) {
+        e.preventDefault();
+        expanded = !expanded;
+
+        checkboxElements.forEach((el, index) => {
+            if (index >= VISIBLE_COUNT) {
+                el.style.display = expanded ? "block" : "none";
+            }
+        });
+
+        toggleLink.textContent = expanded ? "Show less" : "Show more";
+    });
+
+    // Initial apply
+    applyPortsFilter();
+});
+</script>
+
+
+<script>
+// COLOR filtering (normalized)
+document.addEventListener("DOMContentLoaded", function() {
+    const table = document.getElementById("pcbuild-table");
+    const tableRows = table.querySelectorAll("tbody tr");
+    const filterContainer = document.getElementById("color-filter");
+    const colorMap = new Map(); // key = normalized, value = original (for display)
+
+    const VISIBLE_COUNT = 4;
+    let expanded = false;
+
+    // Step 1: Extract and normalize unique colors
+    tableRows.forEach(row => {
+        const colorRaw = row.querySelector(".color-cell")?.textContent.trim() || '-';
+        const normalized = colorRaw.toLowerCase();
+
+        // Only store first variant (preserves real display value)
+        if (!colorMap.has(normalized)) {
+            colorMap.set(normalized, colorRaw);
+        }
+    });
+
+    const sortedColors = Array.from(colorMap.keys()).sort();
+    const checkboxElements = [];
+
+    // Step 2: Create checkboxes
+    sortedColors.forEach(normalized => {
+        const labelText = colorMap.get(normalized);
+        const label = document.createElement("label");
+        label.innerHTML = `
+            <input type="checkbox" name="color" value="${normalized}" checked> ${labelText}
+        `;
+        label.style.display = 'block';
+        checkboxElements.push(label);
+    });
+
+    // Step 3: Render checkboxes (with show more logic)
+    checkboxElements.forEach((el, index) => {
+        if (index >= VISIBLE_COUNT) el.style.display = 'none';
+        filterContainer.appendChild(el);
+    });
+
+    // Step 4: Add Show More / Show Less toggle
+    const toggleLink = document.createElement("a");
+    toggleLink.href = "#";
+    toggleLink.textContent = "Show more";
+    toggleLink.style.display = (checkboxElements.length > VISIBLE_COUNT) ? "inline-block" : "none";
+    toggleLink.style.marginTop = "5px";
+    toggleLink.style.fontSize = "14px";
+    toggleLink.style.color = "#0066cc";
+    filterContainer.appendChild(toggleLink);
+
+    // Step 5: Add "All" checkbox
+    const allCheckbox = document.createElement("label");
+    allCheckbox.innerHTML = `<input type="checkbox" id="color-all" checked> All`;
+    filterContainer.insertBefore(allCheckbox, filterContainer.firstChild);
+
+    // Filter logic
+    function applyColorFilter() {
+        const selected = Array.from(document.querySelectorAll("input[name='color']:checked"))
+            .map(cb => cb.value);
+        const isAll = document.getElementById("color-all").checked;
+
+        tableRows.forEach(row => {
+            const color = row.querySelector(".color-cell")?.textContent.trim().toLowerCase() || '-';
+            const show = isAll || selected.includes(color);
+            row.style.display = show ? "" : "none";
+        });
+
+        updateAllCheckboxState();
+        applyZebraStriping();
+    }
+
+    // Zebra stripe helper
+    function applyZebraStriping() {
+        const visibleRows = Array.from(table.querySelectorAll("tbody tr"))
+            .filter(row => row.style.display !== "none");
+        visibleRows.forEach((row, index) => {
+            row.style.backgroundColor = (index % 2 === 0) ? '#d4d4d4' : '#ebebeb';
+        });
+    }
+
+    // Update "All" checkbox
+    function updateAllCheckboxState() {
+        const allBoxes = Array.from(document.querySelectorAll("input[name='color']"));
+        const checkedBoxes = allBoxes.filter(cb => cb.checked);
+        document.getElementById("color-all").checked = (checkedBoxes.length === allBoxes.length);
+    }
+
+    // "All" checkbox logic
+    document.getElementById("color-all").addEventListener("change", function() {
+        const allBoxes = document.querySelectorAll("input[name='color']");
+        allBoxes.forEach(cb => cb.checked = this.checked);
+        applyColorFilter();
+    });
+
+    // Filter on individual checkbox change
+    filterContainer.addEventListener("change", function(e) {
+        if (e.target.name === "color") {
+            applyColorFilter();
+        }
+    });
+
+    // Show more / less toggle
+    toggleLink.addEventListener("click", function(e) {
+        e.preventDefault();
+        expanded = !expanded;
+
+        checkboxElements.forEach((el, index) => {
+            if (index >= VISIBLE_COUNT) {
+                el.style.display = expanded ? "block" : "none";
+            }
+        });
+
+        toggleLink.textContent = expanded ? "Show less" : "Show more";
+    });
+
+    // ✅ Reset all filters on page reload
+    window.addEventListener("pageshow", function() {
+        document.querySelectorAll("input[name='color']").forEach(cb => cb.checked = true);
+        document.getElementById("color-all").checked = true;
+        applyColorFilter();
+    });
+
+    // Initial load
+    applyColorFilter();
+});
+</script>
+
+
+<script>
 // SORTING LOGIC
 document.addEventListener('DOMContentLoaded', () => {
     const table = document.getElementById("pcbuild-table");
@@ -1053,242 +1300,6 @@ document.addEventListener("DOMContentLoaded", function() {
     applyInterfaceFilter();
 });
 </script>
-
-
-
-
-
-<script>
-// PORTS filtering
-document.addEventListener("DOMContentLoaded", function() {
-    const table = document.getElementById("pcbuild-table");
-    const tableRows = table.querySelectorAll("tbody tr");
-    const filterContainer = document.getElementById("ports-filter");
-    const portsSet = new Set();
-
-    const VISIBLE_COUNT = 4;
-    let expanded = false;
-
-    // Step 1: Collect all unique ports values
-    tableRows.forEach(row => {
-        const port = row.querySelector(".ports-cell")?.textContent.trim() || '-';
-        portsSet.add(port);
-    });
-
-    const ports = Array.from(portsSet).sort();
-    const checkboxElements = [];
-
-    // Step 2: Build checkboxes
-    ports.forEach(port => {
-        const label = document.createElement("label");
-        label.innerHTML =
-            `<input type="checkbox" name="ports" value="${port}" checked> ${port}`;
-        label.style.display = 'block';
-        checkboxElements.push(label);
-    });
-
-    // Step 3: Render checkboxes
-    checkboxElements.forEach((el, index) => {
-        if (index >= VISIBLE_COUNT) {
-            el.style.display = 'none';
-        }
-        filterContainer.appendChild(el);
-    });
-
-    // Step 4: Add Show More/Show Less link
-    const toggleLink = document.createElement("a");
-    toggleLink.href = "#";
-    toggleLink.textContent = "Show more";
-    toggleLink.style.display = (checkboxElements.length > VISIBLE_COUNT) ? "inline-block" : "none";
-    toggleLink.style.marginTop = "5px";
-    toggleLink.style.fontSize = "14px";
-    toggleLink.style.color = "#0066cc";
-    filterContainer.appendChild(toggleLink);
-
-    // Step 5: Create "All" checkbox
-    const allCheckbox = document.createElement("label");
-    allCheckbox.innerHTML = `<input type="checkbox" id="ports-all" checked> All`;
-    filterContainer.insertBefore(allCheckbox, filterContainer.firstChild);
-
-    function applyZebraStriping() {
-        const visibleRows = Array.from(table.querySelectorAll("tbody tr"))
-            .filter(row => row.style.display !== "none");
-        visibleRows.forEach((row, index) => {
-            row.style.backgroundColor = (index % 2 === 0) ? '#d4d4d4' : '#ebebeb';
-        });
-    }
-
-    // Step 6: Filtering logic
-    function applyPortsFilter() {
-        const selected = Array.from(document.querySelectorAll("input[name='ports']:checked"))
-            .map(cb => cb.value);
-        const isAll = document.getElementById("ports-all").checked;
-
-        tableRows.forEach(row => {
-            const port = row.querySelector(".ports-cell")?.textContent.trim() || '-';
-            const show = isAll || selected.includes(port);
-            row.style.display = show ? "" : "none";
-        });
-
-        updateAllCheckboxState();
-        applyZebraStriping();
-    }
-
-    // "All" state updater
-    function updateAllCheckboxState() {
-        const allBoxes = Array.from(document.querySelectorAll("input[name='ports']"));
-        const checkedBoxes = allBoxes.filter(cb => cb.checked);
-        document.getElementById("ports-all").checked = (checkedBoxes.length === allBoxes.length);
-    }
-
-    // Handle "All" checkbox
-    document.getElementById("ports-all").addEventListener("change", function() {
-        const allBoxes = document.querySelectorAll("input[name='ports']");
-        allBoxes.forEach(cb => cb.checked = this.checked);
-        applyPortsFilter();
-    });
-
-    // Handle individual port checkbox
-    filterContainer.addEventListener("change", function(e) {
-        if (e.target.name === "ports") {
-            applyPortsFilter();
-        }
-    });
-
-    // Show more / less toggling
-    toggleLink.addEventListener("click", function(e) {
-        e.preventDefault();
-        expanded = !expanded;
-
-        checkboxElements.forEach((el, index) => {
-            if (index >= VISIBLE_COUNT) {
-                el.style.display = expanded ? "block" : "none";
-            }
-        });
-
-        toggleLink.textContent = expanded ? "Show less" : "Show more";
-    });
-
-    // Initial apply
-    applyPortsFilter();
-});
-</script>
-
-
-<script>
-// COLOR filtering
-document.addEventListener("DOMContentLoaded", function() {
-    const table = document.getElementById("pcbuild-table");
-    const tableRows = table.querySelectorAll("tbody tr");
-    const filterContainer = document.getElementById("color-filter");
-    const colorSet = new Set();
-
-    const VISIBLE_COUNT = 4;
-    let expanded = false;
-
-    // Step 1: Get unique color values
-    tableRows.forEach(row => {
-        const color = row.querySelector(".color-cell")?.textContent.trim() || '-';
-        colorSet.add(color);
-    });
-
-    const colors = Array.from(colorSet).sort();
-    const checkboxElements = [];
-
-    // Step 2: Build checkboxes
-    colors.forEach(color => {
-        const label = document.createElement("label");
-        label.innerHTML =
-            `<input type="checkbox" name="color" value="${color}" checked> ${color}`;
-        label.style.display = 'block';
-        checkboxElements.push(label);
-    });
-
-    // Step 3: Render checkboxes
-    checkboxElements.forEach((el, index) => {
-        if (index >= VISIBLE_COUNT) {
-            el.style.display = 'none';
-        }
-        filterContainer.appendChild(el);
-    });
-
-    // Step 4: Add Show More/Show Less link
-    const toggleLink = document.createElement("a");
-    toggleLink.href = "#";
-    toggleLink.textContent = "Show more";
-    toggleLink.style.display = (checkboxElements.length > VISIBLE_COUNT) ? "inline-block" : "none";
-    toggleLink.style.marginTop = "5px";
-    toggleLink.style.fontSize = "14px";
-    toggleLink.style.color = "#0066cc";
-    filterContainer.appendChild(toggleLink);
-
-    // Step 5: Add "All" checkbox
-    const allCheckbox = document.createElement("label");
-    allCheckbox.innerHTML = `<input type="checkbox" id="color-all" checked> All`;
-    filterContainer.insertBefore(allCheckbox, filterContainer.firstChild);
-
-    function applyZebraStriping() {
-        const visibleRows = Array.from(table.querySelectorAll("tbody tr"))
-            .filter(row => row.style.display !== "none");
-        visibleRows.forEach((row, index) => {
-            row.style.backgroundColor = (index % 2 === 0) ? '#d4d4d4' : '#ebebeb';
-        });
-    }
-
-    function applyColorFilter() {
-        const selected = Array.from(document.querySelectorAll("input[name='color']:checked"))
-            .map(cb => cb.value);
-        const isAll = document.getElementById("color-all").checked;
-
-        tableRows.forEach(row => {
-            const color = row.querySelector(".color-cell")?.textContent.trim() || '-';
-            const show = isAll || selected.includes(color);
-            row.style.display = show ? "" : "none";
-        });
-
-        updateAllCheckboxState();
-        applyZebraStriping();
-    }
-
-    function updateAllCheckboxState() {
-        const allBoxes = Array.from(document.querySelectorAll("input[name='color']"));
-        const checkedBoxes = allBoxes.filter(cb => cb.checked);
-        document.getElementById("color-all").checked = (checkedBoxes.length === allBoxes.length);
-    }
-
-    document.getElementById("color-all").addEventListener("change", function() {
-        const allBoxes = document.querySelectorAll("input[name='color']");
-        allBoxes.forEach(cb => cb.checked = this.checked);
-        applyColorFilter();
-    });
-
-    filterContainer.addEventListener("change", function(e) {
-        if (e.target.name === "color") {
-            applyColorFilter();
-        }
-    });
-
-    toggleLink.addEventListener("click", function(e) {
-        e.preventDefault();
-        expanded = !expanded;
-
-        checkboxElements.forEach((el, index) => {
-            if (index >= VISIBLE_COUNT) {
-                el.style.display = expanded ? "block" : "none";
-            }
-        });
-
-        toggleLink.textContent = expanded ? "Show less" : "Show more";
-    });
-
-    // Initial apply
-    applyColorFilter();
-});
-</script>
-
-
-
-
 
 
 

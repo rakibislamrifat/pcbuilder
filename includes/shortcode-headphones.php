@@ -128,15 +128,15 @@ function aawp_pcbuild_display_parts_headphones($atts) {
                 </div>
             </div>
 
-            <div class="filter-group" style="margin-bottom: 20px; margin-top:20px;">
+            <!-- <div class="filter-group" style="margin-bottom: 20px; margin-top:20px;">
                 <div class="filter-header">
                     <strong>ENCLOSURE TYPE</strong>
                     <button class="filter-toggle">−</button>
                 </div>
                 <div class="filter-options" id="enclosure-type-filter">
-                    <!-- Filters will be injected here -->
+
                 </div>
-            </div>
+            </div> -->
 
             <div class="filter-group" style="margin-bottom: 20px; margin-top:20px;">
                 <div class="filter-header">
@@ -197,15 +197,15 @@ function aawp_pcbuild_display_parts_headphones($atts) {
                             <span class="sort-arrow">&#9654;</span>
                         </th>
 
-                        <th class="sortable-header" data-key="wireless">
+                        <th class="sortable-header" colspan="2" data-key="wireless">
                             <span class="sort-header-label">Wireless</span>
                             <span class="sort-arrow">&#9654;</span>
                         </th>
 
-                        <th class="sortable-header" colspan="2" data-key="enclosure_type">
+                        <!-- <th class="sortable-header" colspan="2" data-key="enclosure_type">
                             <span class="sort-header-label">Enclosure Type</span>
                             <span class="sort-arrow">&#9654;</span>
-                        </th>
+                        </th> -->
 
                         <th class="sortable-header" data-key="color">
                             <span class="sort-header-label">Color</span>
@@ -283,14 +283,14 @@ function aawp_pcbuild_display_parts_headphones($atts) {
                     <tr class="product-row" style="background-color: <?php echo $row_bg; ?>">
                         <td style="padding: 10px;">
                             <img src="<?php echo $raw_image; ?>" alt="<?php echo $title; ?>"
-                                style="width:125px; height:125px; border-radius:4px;" />
+                                style="min-width:115px; height:115px; border-radius:4px;" />
                         </td>
                         <td style="font-weight:800;"><?php echo $title; ?></td>
-                        <td class="type-cell"><?php echo esc_html($type); ?></td>
+                        <td class="type-cell" style="min-width:100px;"><?php echo esc_html($type); ?></td>
                         <td><?php echo esc_html($frequency_response); ?></td>
                         <td class="microphone-cell"><?php echo esc_html($microphone); ?></td>
                         <td class="wireless-cell"><?php echo esc_html($wireless); ?></td>
-                        <td class="enclosure-type-cell"><?php echo esc_html($enclosure_type); ?></td>
+                        <!-- <td class="enclosure-type-cell"><?php echo esc_html($enclosure_type); ?></td> -->
                         <td class="anc-cell" style="padding:0; margin:0; border:0; width:0; font-size:0;">
                             <span style="display:none;"><?php echo esc_html($anc); ?></span>
                         </td>

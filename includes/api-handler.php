@@ -246,7 +246,7 @@ function aawp_pcbuild_get_search_index($category) {
             $keywords = 'wifi network adapter';
             break;
         case 'headphones':
-            $keywords = 'headphones headset';
+            $keywords = 'bluetooth over ear headphones';
             break;
         case 'keyboards':
             $keywords = 'computer keyboard mechanical keyboard';
