@@ -1,0 +1,650 @@
+{
+    "SearchResult": {
+     "Items": [
+      {
+       "ASIN": "B0DLKB5V35",
+       "BrowseNodeInfo": {
+        "BrowseNodes": [
+         {
+          "Ancestor": {
+           "Ancestor": {
+            "Ancestor": {
+             "Ancestor": {
+              "ContextFreeName": "Electronics",
+              "DisplayName": "Electronics",
+              "Id": "172282"
+             },
+             "ContextFreeName": "Electronics",
+             "DisplayName": "Categories",
+             "Id": "493964"
+            },
+            "ContextFreeName": "Headphones, Earbuds & Accessories",
+            "DisplayName": "Headphones, Earbuds & Accessories",
+            "Id": "24046923011"
+           },
+           "ContextFreeName": "Headphones & Earbuds",
+           "DisplayName": "Headphones & Earbuds",
+           "Id": "172541"
+          },
+          "ContextFreeName": "Over-Ear Headphones",
+          "DisplayName": "Over-Ear Headphones",
+          "Id": "12097479011",
+          "IsRoot": false,
+          "SalesRank": 2
+         },
+         {
+          "Ancestor": {
+           "Ancestor": {
+            "Ancestor": {
+             "Ancestor": {
+              "Ancestor": {
+               "Ancestor": {
+                "ContextFreeName": "Electronics",
+                "DisplayName": "Electronics",
+                "Id": "172282"
+               },
+               "ContextFreeName": "Arborist Merchandising Root",
+               "DisplayName": "Arborist Merchandising Root",
+               "Id": "119971462011"
+              },
+              "ContextFreeName": "Computers Features Self Service",
+              "DisplayName": "Computers Features Self Service",
+              "Id": "2334091011"
+             },
+             "ContextFreeName": "Special Features Stores",
+             "DisplayName": "Special Features Stores",
+             "Id": "2334153011"
+            },
+            "ContextFreeName": "f0c28841-68d6-4709-968f-f6525567f4dc_0",
+            "DisplayName": "f0c28841-68d6-4709-968f-f6525567f4dc_0",
+            "Id": "119971468011"
+           },
+           "ContextFreeName": "f0c28841-68d6-4709-968f-f6525567f4dc_2501",
+           "DisplayName": "f0c28841-68d6-4709-968f-f6525567f4dc_2501",
+           "Id": "119971838011"
+          },
+          "ContextFreeName": "Electronics: More Sustainable Products",
+          "DisplayName": "Electronics: More Sustainable Products",
+          "Id": "121213976011",
+          "IsRoot": false
+         }
+        ],
+        "WebsiteSalesRank": {
+         "SalesRank": 71
+        }
+       },
+       "DetailPageURL": "https://www.amazon.com/dp/B0DLKB5V35?tag=pcbuildpartscom-20&linkCode=osi&th=1&psc=1",
+       "Images": {
+        "Primary": {
+         "Large": {
+          "Height": 500,
+          "URL": "https://m.media-amazon.com/images/I/31oRPHehR6L._SL500_.jpg",
+          "Width": 500
+         },
+         "Medium": {
+          "Height": 160,
+          "URL": "https://m.media-amazon.com/images/I/31oRPHehR6L._SL160_.jpg",
+          "Width": 160
+         },
+         "Small": {
+          "Height": 75,
+          "URL": "https://m.media-amazon.com/images/I/31oRPHehR6L._SL75_.jpg",
+          "Width": 75
+         }
+        },
+        "Variants": [
+         {
+          "Large": {
+           "Height": 500,
+           "URL": "https://m.media-amazon.com/images/I/412fCi3pQyL._SL500_.jpg",
+           "Width": 500
+          },
+          "Medium": {
+           "Height": 160,
+           "URL": "https://m.media-amazon.com/images/I/412fCi3pQyL._SL160_.jpg",
+           "Width": 160
+          },
+          "Small": {
+           "Height": 75,
+           "URL": "https://m.media-amazon.com/images/I/412fCi3pQyL._SL75_.jpg",
+           "Width": 75
+          }
+         },
+         {
+          "Large": {
+           "Height": 500,
+           "URL": "https://m.media-amazon.com/images/I/41IlAZnu0UL._SL500_.jpg",
+           "Width": 500
+          },
+          "Medium": {
+           "Height": 160,
+           "URL": "https://m.media-amazon.com/images/I/41IlAZnu0UL._SL160_.jpg",
+           "Width": 160
+          },
+          "Small": {
+           "Height": 75,
+           "URL": "https://m.media-amazon.com/images/I/41IlAZnu0UL._SL75_.jpg",
+           "Width": 75
+          }
+         },
+         {
+          "Large": {
+           "Height": 500,
+           "URL": "https://m.media-amazon.com/images/I/41HhF9dq3NL._SL500_.jpg",
+           "Width": 500
+          },
+          "Medium": {
+           "Height": 160,
+           "URL": "https://m.media-amazon.com/images/I/41HhF9dq3NL._SL160_.jpg",
+           "Width": 160
+          },
+          "Small": {
+           "Height": 75,
+           "URL": "https://m.media-amazon.com/images/I/41HhF9dq3NL._SL75_.jpg",
+           "Width": 75
+          }
+         },
+         {
+          "Large": {
+           "Height": 500,
+           "URL": "https://m.media-amazon.com/images/I/41H1FCuQd3L._SL500_.jpg",
+           "Width": 500
+          },
+          "Medium": {
+           "Height": 160,
+           "URL": "https://m.media-amazon.com/images/I/41H1FCuQd3L._SL160_.jpg",
+           "Width": 160
+          },
+          "Small": {
+           "Height": 75,
+           "URL": "https://m.media-amazon.com/images/I/41H1FCuQd3L._SL75_.jpg",
+           "Width": 75
+          }
+         },
+         {
+          "Large": {
+           "Height": 500,
+           "URL": "https://m.media-amazon.com/images/I/41r7fmzx1zL._SL500_.jpg",
+           "Width": 500
+          },
+          "Medium": {
+           "Height": 160,
+           "URL": "https://m.media-amazon.com/images/I/41r7fmzx1zL._SL160_.jpg",
+           "Width": 160
+          },
+          "Small": {
+           "Height": 75,
+           "URL": "https://m.media-amazon.com/images/I/41r7fmzx1zL._SL75_.jpg",
+           "Width": 75
+          }
+         }
+        ]
+       },
+       "ItemInfo": {
+        "ByLineInfo": {
+         "Brand": {
+          "DisplayValue": "Soundcore",
+          "Label": "Brand",
+          "Locale": "en_US"
+         },
+         "Manufacturer": {
+          "DisplayValue": "Anker",
+          "Label": "Manufacturer",
+          "Locale": "en_US"
+         }
+        },
+        "Classifications": {
+         "Binding": {
+          "DisplayValue": "Electronics",
+          "Label": "Binding",
+          "Locale": "en_US"
+         },
+         "ProductGroup": {
+          "DisplayValue": "Electronics",
+          "Label": "ProductGroup",
+          "Locale": "en_US"
+         }
+        },
+        "ExternalIds": {
+         "EANs": {
+          "DisplayValues": [
+           "0194644287115"
+          ],
+          "Label": "EAN",
+          "Locale": "en_US"
+         },
+         "UPCs": {
+          "DisplayValues": [
+           "194644287115"
+          ],
+          "Label": "UPC",
+          "Locale": "en_US"
+         }
+        },
+        "Features": {
+         "DisplayValues": [
+          "Incredible Sound Loved by 20 Million+ People",
+          "Hi-Res Audio: Custom oversized 40 mm dynamic drivers produce Hi-Res sound. Life Q20 active noise canceling headphones reproduce music with extended high frequencies that reach up to 40 kHz for extraordinary clarity and detail.",
+          "Reduce Ambient Noises By Up to 90%: Our team of engineers conducted more than 100,000 tests in real-life scenarios to fine-tune Life Q20’s 4 built-in ANC microphones and digital active noise cancellation algorithm. As a result, the hybrid active noise cancellation can detect and cancel out a wider range of low and mid-frequency noises such as cars and airplane engines.",
+          "100% Stronger Bass: Our exclusive BassUp technology conducts real-time analysis of the low frequencies to instantly strengthen the bass output. Double press the play button when listening to bass-heavy genres like EDM and hip-hop for an amplified listening experience.",
+          "70-Hour Playtime*: Up to 50 hours of non-stop playtime in wireless active noise cancellation mode (at 60% volume) is extended to an enormous 70 hours in standard music mode. A single charge gives you enough juice to listen to over 600 songs or soundtrack multiple long haul flights. And when you’re in a rush, charge Life Q20 active noise canceling headphones for 5 minutes and get 4 hours of listening."
+         ],
+         "Label": "Features",
+         "Locale": "en_US"
+        },
+        "ManufactureInfo": {
+         "ItemPartNumber": {
+          "DisplayValue": "A3025",
+          "Label": "PartNumber",
+          "Locale": "en_US"
+         },
+         "Model": {
+          "DisplayValue": "A3025",
+          "Label": "Model",
+          "Locale": "en_US"
+         },
+         "Warranty": {
+          "DisplayValue": "18",
+          "Label": "Warranty",
+          "Locale": "en_US"
+         }
+        },
+        "ProductInfo": {
+         "Color": {
+          "DisplayValue": "Black",
+          "Label": "Color",
+          "Locale": "en_US"
+         },
+         "ItemDimensions": {
+          "Height": {
+           "DisplayValue": 3.07086,
+           "Label": "Height",
+           "Locale": "en_US",
+           "Unit": "inches"
+          },
+          "Length": {
+           "DisplayValue": 7.67715,
+           "Label": "Length",
+           "Locale": "en_US",
+           "Unit": "inches"
+          },
+          "Weight": {
+           "DisplayValue": 0.551155655,
+           "Label": "Weight",
+           "Locale": "en_US",
+           "Unit": "Pounds"
+          },
+          "Width": {
+           "DisplayValue": 7.0866,
+           "Label": "Width",
+           "Locale": "en_US",
+           "Unit": "inches"
+          }
+         },
+         "UnitCount": {
+          "DisplayValue": 1,
+          "Label": "NumberOfItems",
+          "Locale": "en_US"
+         }
+        },
+        "Title": {
+         "DisplayValue": "Soundcore Anker Life Q20 Hybrid Active Noise Cancelling Headphones, Wireless Over Ear Bluetooth Headphones, 70H Playtime, Hi-Res Audio, Deep Bass, Memory Foam Ear Cups, Travel, Office, USB-C Charging",
+         "Label": "Title",
+         "Locale": "en_US"
+        }
+       },
+       "Offers": {
+        "Listings": [
+         {
+          "Availability": {
+           "Message": "In Stock",
+           "MinOrderQuantity": 1,
+           "Type": "Now"
+          },
+          "Condition": {
+           "SubCondition": {
+            "Value": "New"
+           },
+           "Value": "New"
+          },
+          "DeliveryInfo": {
+           "IsAmazonFulfilled": true,
+           "IsFreeShippingEligible": true,
+           "IsPrimeEligible": true
+          },
+          "Id": "hI6zv8k%2BhnaWAOOk2GBCp%2FUEMNJNJJVbUIZFqoIpefQlS%2BP3iKQID0YaiqXF8P5faLwiLbq7UPHptxBuOW5fcdMX8jSmdkTnHc8BI8FRvSAIP103zTzTc4bE2a7AaINHqzwRyaYlhj%2BmDDyDj0AtrD2qnMHZuLv6Z80AqE0kg4%2FiZxR%2F5%2Bzt%2Bw%3D%3D",
+          "IsBuyBoxWinner": true,
+          "MerchantInfo": {
+           "DefaultShippingCountry": "US",
+           "FeedbackCount": 39374,
+           "FeedbackRating": 4.9,
+           "Id": "A294P4X9EWVXLJ",
+           "Name": "AnkerDirect"
+          },
+          "Price": {
+           "Amount": 49.99,
+           "Currency": "USD",
+           "DisplayAmount": "$49.99",
+           "Savings": {
+            "Amount": 10,
+            "Currency": "USD",
+            "DisplayAmount": "$10.00 (17%)",
+            "Percentage": 17
+           }
+          },
+          "ProgramEligibility": {
+           "IsPrimeExclusive": false,
+           "IsPrimePantry": false
+          },
+          "SavingBasis": {
+           "Amount": 59.99,
+           "Currency": "USD",
+           "DisplayAmount": "$59.99",
+           "PriceType": "LIST_PRICE"
+          },
+          "ViolatesMAP": false
+         }
+        ],
+        "Summaries": [
+         {
+          "Condition": {
+           "Value": "New"
+          },
+          "HighestPrice": {
+           "Amount": 49.99,
+           "Currency": "USD",
+           "DisplayAmount": "$49.99"
+          },
+          "LowestPrice": {
+           "Amount": 49.99,
+           "Currency": "USD",
+           "DisplayAmount": "$49.99"
+          },
+          "OfferCount": 1
+         },
+         {
+          "Condition": {
+           "Value": "Used"
+          },
+          "HighestPrice": {
+           "Amount": 49.26,
+           "Currency": "USD",
+           "DisplayAmount": "$49.26"
+          },
+          "LowestPrice": {
+           "Amount": 46.77,
+           "Currency": "USD",
+           "DisplayAmount": "$46.77"
+          },
+          "OfferCount": 3
+         }
+        ]
+       },
+       "ParentASIN": "B0DTP9QLP6"
+      }
+     
+     ],
+     "SearchRefinements": {
+      "BrowseNode": {
+       "Bins": [
+        {
+         "DisplayName": "Accessories & Supplies",
+         "Id": "281407"
+        },
+        {
+         "DisplayName": "Camera & Photo",
+         "Id": "502394"
+        },
+        {
+         "DisplayName": "Car & Vehicle Electronics",
+         "Id": "3248684011"
+        },
+        {
+         "DisplayName": "Cell Phones & Accessories",
+         "Id": "2811119011"
+        },
+        {
+         "DisplayName": "Computers & Accessories",
+         "Id": "541966"
+        },
+        {
+         "DisplayName": "Electronic Protection Plans",
+         "Id": "2242348011"
+        },
+        {
+         "DisplayName": "GPS, Finders & Accessories",
+         "Id": "172526"
+        },
+        {
+         "DisplayName": "Home Audio",
+         "Id": "667846011"
+        },
+        {
+         "DisplayName": "Office Electronics",
+         "Id": "172574"
+        },
+        {
+         "DisplayName": "Portable Audio & Video",
+         "Id": "172623"
+        },
+        {
+         "DisplayName": "Security & Surveillance",
+         "Id": "524136"
+        },
+        {
+         "DisplayName": "Service Plans",
+         "Id": "16285901"
+        },
+        {
+         "DisplayName": "Television & Video",
+         "Id": "1266092011"
+        },
+        {
+         "DisplayName": "Video Game Consoles & Accessories",
+         "Id": "7926841011"
+        },
+        {
+         "DisplayName": "Video Projectors",
+         "Id": "300334"
+        },
+        {
+         "DisplayName": "Wearable Technology",
+         "Id": "10048700011"
+        },
+        {
+         "DisplayName": "eBook Readers & Accessories",
+         "Id": "2642125011"
+        },
+        {
+         "DisplayName": "Headphones, Earbuds & Accessories",
+         "Id": "24046923011"
+        },
+        {
+         "DisplayName": "Household Batteries, Chargers & Accessories",
+         "Id": "21608214011"
+        },
+        {
+         "DisplayName": "Power Accessories",
+         "Id": "21608215011"
+        },
+        {
+         "DisplayName": "Tablets",
+         "Id": "1232597011"
+        }
+       ],
+       "DisplayName": "Electronics",
+       "Id": "BrowseNodeId"
+      },
+      "OtherRefinements": [
+       {
+        "Bins": [
+         {
+          "DisplayName": "Sony",
+          "Id": "Sony"
+         },
+         {
+          "DisplayName": "Beats",
+          "Id": "Beats"
+         },
+         {
+          "DisplayName": "JBL",
+          "Id": "JBL"
+         },
+         {
+          "DisplayName": "Soundcore",
+          "Id": "Soundcore"
+         },
+         {
+          "DisplayName": "Apple",
+          "Id": "Apple"
+         },
+         {
+          "DisplayName": "Bose",
+          "Id": "Bose"
+         },
+         {
+          "DisplayName": "JLab",
+          "Id": "JLab"
+         },
+         {
+          "DisplayName": "TOZO",
+          "Id": "TOZO"
+         },
+         {
+          "DisplayName": "Skullcandy",
+          "Id": "Skullcandy"
+         },
+         {
+          "DisplayName": "Sennheiser",
+          "Id": "Sennheiser"
+         },
+         {
+          "DisplayName": "Edifier",
+          "Id": "Edifier"
+         },
+         {
+          "DisplayName": "Koss",
+          "Id": "Koss"
+         },
+         {
+          "DisplayName": "Panasonic",
+          "Id": "Panasonic"
+         },
+         {
+          "DisplayName": "PHILIPS",
+          "Id": "PHILIPS"
+         },
+         {
+          "DisplayName": "Logitech",
+          "Id": "Logitech"
+         },
+         {
+          "DisplayName": "beyerdynamic",
+          "Id": "beyerdynamic"
+         },
+         {
+          "DisplayName": "Belkin",
+          "Id": "Belkin"
+         },
+         {
+          "DisplayName": "Audio-Technica",
+          "Id": "Audio-Technica"
+         },
+         {
+          "DisplayName": "Monster",
+          "Id": "Monster"
+         },
+         {
+          "DisplayName": "JVC",
+          "Id": "JVC"
+         },
+         {
+          "DisplayName": "Avantree",
+          "Id": "Avantree"
+         },
+         {
+          "DisplayName": "Samsung",
+          "Id": "Samsung"
+         },
+         {
+          "DisplayName": "Razer",
+          "Id": "Razer"
+         },
+         {
+          "DisplayName": "Symphonized",
+          "Id": "Symphonized"
+         },
+         {
+          "DisplayName": "1MORE",
+          "Id": "1MORE"
+         },
+         {
+          "DisplayName": "LEVN",
+          "Id": "LEVN"
+         },
+         {
+          "DisplayName": "Turtle Beach",
+          "Id": "Turtle Beach"
+         },
+         {
+          "DisplayName": "Yealink",
+          "Id": "Yealink"
+         },
+         {
+          "DisplayName": "HyperX",
+          "Id": "HyperX"
+         },
+         {
+          "DisplayName": "LilGadgets",
+          "Id": "LilGadgets"
+         },
+         {
+          "DisplayName": "MUSICOZY",
+          "Id": "MUSICOZY"
+         },
+         {
+          "DisplayName": "FiiO",
+          "Id": "FiiO"
+         },
+         {
+          "DisplayName": "1Mii",
+          "Id": "1Mii"
+         },
+         {
+          "DisplayName": "eKids",
+          "Id": "eKids"
+         },
+         {
+          "DisplayName": "AVIOT",
+          "Id": "AVIOT"
+         },
+         {
+          "DisplayName": "EKSA",
+          "Id": "EKSA"
+         },
+         {
+          "DisplayName": "Puro Sound Labs",
+          "Id": "Puro Sound Labs"
+         },
+         {
+          "DisplayName": "acer",
+          "Id": "acer"
+         },
+         {
+          "DisplayName": "BlueParrott",
+          "Id": "BlueParrott"
+         },
+         {
+          "DisplayName": "Retekess",
+          "Id": "Retekess"
+         }
+        ],
+        "DisplayName": "Brands",
+        "Id": "Brand"
+       }
+      ]
+     },
+     "SearchURL": "https://www.amazon.com/s?k=headphones&i=electronics&rh=p_n_availability%3A2661600011&tag=pcbuildpartscom-20&linkCode=osi",
+     "TotalResultCount": 1000
+    }
+   }

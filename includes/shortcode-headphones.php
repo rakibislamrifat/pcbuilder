@@ -98,10 +98,10 @@ function aawp_pcbuild_display_parts_headphones($atts) {
             </div>
             <div class="filter-group" style="margin-bottom: 20px; margin-top:20px;">
                 <div class="filter-header">
-                    <strong>INTERFACE</strong>
+                    <strong>Type</strong>
                     <button class="filter-toggle">−</button>
                 </div>
-                <div class="filter-options" id="interface-filter">
+                <div class="filter-options" id="type-filter">
                     <!-- Filters will be injected here -->
                 </div>
             </div>
@@ -197,77 +197,66 @@ function aawp_pcbuild_display_parts_headphones($atts) {
                 <?php include('rating-count.php'); ?>
                 <tbody>
                     <?php foreach ($display_items as $index => $item):
-        $row_bg = ($index % 2 === 0) ? '#d4d4d4' : '#ebebeb';
-        $asin = $item['ASIN'] ?? '';
-        $full_title = $item['ItemInfo']['Title']['DisplayValue'] ?? 'Unknown Product';
-        $title = esc_html(implode(' ', array_slice(explode(' ', $full_title), 0, 4)));
-        $raw_title = esc_attr($full_title);
-        $image = $item['Images']['Primary']['Large']['URL'] ??
-                $item['Images']['Primary']['Medium']['URL'] ?? 
-                $item['Images']['Primary']['Small']['URL'] ?? '';
-        $raw_image = esc_url($image);
-        $price = $item['Offers']['Listings'][0]['Price']['DisplayAmount'] ?? 'N/A';
-        $base_price = $price;
-        $availability = $item['Offers']['Listings'][0]['Availability']['Message'] ?? '—';
-        $product_url = $item['DetailPageURL'] ?? '#';
-        $features = $item['ItemInfo']['Features']['DisplayValues'] ?? [];
-        $features_string = implode(' ', $features);
-        $manufacturer = $item['ItemInfo']['ByLineInfo']['Manufacturer']['DisplayValue'] ?? 'Unknown';
-        $color = $item['ItemInfo']['ProductInfo']['Color']['DisplayValue'] ?? '-';
+    $row_bg = ($index % 2 === 0) ? '#d4d4d4' : '#ebebeb';
+    $asin = $item['ASIN'] ?? '';
+    $full_title = $item['ItemInfo']['Title']['DisplayValue'] ?? 'Unknown Product';
+    $title = esc_html(implode(' ', array_slice(explode(' ', $full_title), 0, 4)));
+    $raw_title = esc_attr($full_title);
+    $image = $item['Images']['Primary']['Large']['URL'] ??
+             $item['Images']['Primary']['Medium']['URL'] ??
+             $item['Images']['Primary']['Small']['URL'] ?? '';
+    $raw_image = esc_url($image);
+    $price = $item['Offers']['Listings'][0]['Price']['DisplayAmount'] ?? 'N/A';
+    $base_price = $price;
+    $availability = $item['Offers']['Listings'][0]['Availability']['Message'] ?? '—';
+    $product_url = $item['DetailPageURL'] ?? '#';
+    $features = $item['ItemInfo']['Features']['DisplayValues'] ?? [];
+    $features_string = implode(' ', $features);
+    $manufacturer = $item['ItemInfo']['ByLineInfo']['Manufacturer']['DisplayValue'] ?? 'Unknown';
+    $color = $item['ItemInfo']['ProductInfo']['Color']['DisplayValue'] ?? '-';
 
-        // Extracting features for specific columns
-        $interface = '-';
-        $frequency_response = '-';
-        $microphone = '-';
-        $wireless = '-';
-        $enclosure_type = '-';
+    // Feature-specific values
+    $type = 'Over-Ear'; // fallback, can also derive from BrowseNodeInfo if available
+    $frequency_response = '-';
+    $microphone = 'No';
+    $wireless = 'No';
+    $enclosure_type = '-';
 
-        // Look for relevant data in the features
-        foreach ($features as $feature) {
-            if (preg_match('/(USB[\s\-]?(2\.0|3\.0|C)|PCI[\s\-]?[Ee]?)/i', $feature, $match)) {
-                $interface = strtoupper(trim($match[0]));
-            }
-
-            if (preg_match('/\d{1,2}-\d{1,3}Hz/i', $feature)) {
-                $frequency_response = $feature;
-            }
-
-            if (stripos($feature, 'microphone') !== false) {
-                $microphone = 'Yes';
-            }
-
-            if (stripos($feature, 'wireless') !== false) {
-                $wireless = 'Yes';
-            }
-
-            if (stripos($feature, 'enclosure') !== false) {
-                $enclosure_type = $feature;
-            }
+    foreach ($features as $feature) {
+        if (preg_match('/\b(20\s?Hz\s?–?\s?40\s?kHz|\d{1,3}\s?Hz\s?[-–]\s?\d{2,4}\s?kHz?)\b/i', $feature, $match)) {
+            $frequency_response = $match[0];
         }
+        if (stripos($feature, 'microphone') !== false || stripos($feature, 'mic') !== false) {
+            $microphone = 'Yes';
+        }
+        if (stripos($feature, 'wireless') !== false || stripos($feature, 'bluetooth') !== false) {
+            $wireless = 'Yes';
+        }
+        if (stripos($feature, 'closed-back') !== false || stripos($feature, 'open-back') !== false) {
+            $enclosure_type = ucfirst(explode(' ', $feature)[0]); // simple extract
+        }
+    }
 
-        // Seller info
-        $sellerCount = $item['Offers']['Listings'][0]['MerchantInfo']['FeedbackCount'] ?? 'Unknown';
-        $sellerRating = $item['Offers']['Listings'][0]['MerchantInfo']['FeedbackRating'] ?? 'Unknown';
-        $rating_count = display_rating_and_count($sellerRating, $sellerCount);
-    ?>
+    // Seller info
+    $sellerCount = $item['Offers']['Listings'][0]['MerchantInfo']['FeedbackCount'] ?? '0';
+    $sellerRating = $item['Offers']['Listings'][0]['MerchantInfo']['FeedbackRating'] ?? '0';
+    $rating_count = display_rating_and_count($sellerRating, $sellerCount);
+?>
                     <tr class="product-row" style="background-color: <?php echo $row_bg; ?>">
-                        <td style="padding: 10px 0 10px 10px; width: 150px!important" title="<?php echo $raw_title; ?>">
+                        <td style="padding: 10px;">
                             <img src="<?php echo $raw_image; ?>" alt="<?php echo $title; ?>"
                                 style="width:125px; height:125px; border-radius:4px;" />
                         </td>
                         <td style="font-weight:800;"><?php echo $title; ?></td>
-                        <td style="padding:10px;"><?php echo esc_html($interface); ?></td>
-                        <td style="padding:10px;"><?php echo esc_html($frequency_response); ?></td>
-                        <td style="padding:10px;"><?php echo esc_html($microphone); ?></td>
-                        <td style="padding:10px;"><?php echo esc_html($wireless); ?></td>
-                        <td style="padding:10px;"><?php echo esc_html($enclosure_type); ?></td>
-                        <td style="padding:10px;"><?php echo esc_html($color); ?></td>
-                        <td style="padding:10px;"
-                            data-rating="<?php echo isset($sellerRating) ? esc_attr($sellerRating) : ''; ?>">
-                            <?php echo $rating_count; ?>
-                        </td>
-                        <td class="price-cell" style="padding:10px;"><?php echo esc_html($price); ?></td>
-                        <td style="padding:10px;">
+                        <td><?php echo esc_html($type); ?></td>
+                        <td><?php echo esc_html($frequency_response); ?></td>
+                        <td><?php echo esc_html($microphone); ?></td>
+                        <td><?php echo esc_html($wireless); ?></td>
+                        <td><?php echo esc_html($enclosure_type); ?></td>
+                        <td><?php echo esc_html($color); ?></td>
+                        <td data-rating="<?php echo esc_attr($sellerRating); ?>"><?php echo $rating_count; ?></td>
+                        <td class="price-cell"><?php echo esc_html($price); ?></td>
+                        <td colspan="2">
                             <button class="add-to-builder" data-asin="<?php echo esc_attr($asin); ?>"
                                 data-title="<?php echo esc_attr($full_title); ?>"
                                 data-image="<?php echo esc_url($image); ?>"
@@ -277,7 +266,7 @@ function aawp_pcbuild_display_parts_headphones($atts) {
                                 data-category="<?php echo esc_attr($category); ?>"
                                 data-affiliate-url="<?php echo esc_url($product_url); ?>"
                                 data-features="<?php echo esc_attr(implode(', ', $features)); ?>"
-                                data-rating="<?php echo isset($sellerRating) ? esc_attr($sellerRating) : ''; ?>"
+                                data-rating="<?php echo esc_attr($sellerRating); ?>"
                                 data-manufacturer="<?php echo esc_attr($manufacturer); ?>"
                                 style="padding:10px 18px; background-color:#28a745; color:#fff; border:none; border-radius:5px; cursor:pointer;">
                                 <?php _e('Add', 'aawp-pcbuild'); ?>
@@ -286,6 +275,8 @@ function aawp_pcbuild_display_parts_headphones($atts) {
                     </tr>
                     <?php endforeach; ?>
                 </tbody>
+
+
 
 
             </table>
@@ -924,136 +915,6 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 
-
-<script>
-// Normalize interface names (e.g., "PCI E", "PCI-E" → "PCIe")
-function normalizeInterfaceName(raw) {
-    const val = raw.trim().toUpperCase();
-
-    if (/^PCI[\s\-]?E$/i.test(val) || val === 'PCIE') return 'PCIe';
-    if (/^USB[\s\-]?C$/i.test(val)) return 'USB-C';
-    if (/^USB[\s\-]?2\.0$/i.test(val)) return 'USB 2.0';
-    if (/^USB[\s\-]?3\.0$/i.test(val)) return 'USB 3.0';
-
-    return raw.trim();
-}
-
-document.addEventListener("DOMContentLoaded", function() {
-    const table = document.getElementById("pcbuild-table");
-    const tableRows = table.querySelectorAll("tbody tr");
-    const filterContainer = document.getElementById("interface-filter");
-    const interfaceSet = new Set();
-
-    const VISIBLE_COUNT = 4;
-    let expanded = false;
-
-    // Step 1: Collect and normalize all unique interface types
-    tableRows.forEach(row => {
-        const rawIface = row.querySelector(".interface-cell")?.textContent || '-';
-        const iface = normalizeInterfaceName(rawIface);
-        interfaceSet.add(iface);
-    });
-
-    const interfaces = Array.from(interfaceSet).sort(); // Alphabetical
-    const checkboxElements = [];
-
-    // Step 2: Create checkboxes
-    interfaces.forEach(iface => {
-        const label = document.createElement("label");
-        label.innerHTML =
-            `<input type="checkbox" name="interface" value="${iface}" checked> ${iface}`;
-        label.style.display = 'block';
-        checkboxElements.push(label);
-    });
-
-    // Step 3: Render checkboxes
-    checkboxElements.forEach((el, index) => {
-        if (index >= VISIBLE_COUNT) {
-            el.style.display = 'none';
-        }
-        filterContainer.appendChild(el);
-    });
-
-    // Step 4: Add Show More / Show Less
-    const toggleLink = document.createElement("a");
-    toggleLink.href = "#";
-    toggleLink.textContent = "Show more";
-    toggleLink.style.display = (checkboxElements.length > VISIBLE_COUNT) ? "inline-block" : "none";
-    toggleLink.style.marginTop = "5px";
-    toggleLink.style.fontSize = "14px";
-    toggleLink.style.color = "#0066cc";
-    filterContainer.appendChild(toggleLink);
-
-    // Step 5: "All" Checkbox
-    const allCheckbox = document.createElement("label");
-    allCheckbox.innerHTML = `<input type="checkbox" id="interface-all" checked> All`;
-    filterContainer.insertBefore(allCheckbox, filterContainer.firstChild);
-
-    // Zebra striping
-    function applyZebraStriping() {
-        const visibleRows = Array.from(table.querySelectorAll("tbody tr"))
-            .filter(row => row.style.display !== "none");
-        visibleRows.forEach((row, index) => {
-            row.style.backgroundColor = (index % 2 === 0) ? '#d4d4d4' : '#ebebeb';
-        });
-    }
-
-    // Step 6: Filtering logic
-    function applyInterfaceFilter() {
-        const selected = Array.from(document.querySelectorAll("input[name='interface']:checked"))
-            .map(cb => cb.value);
-        const isAll = document.getElementById("interface-all").checked;
-
-        tableRows.forEach(row => {
-            const rawIface = row.querySelector(".interface-cell")?.textContent || '-';
-            const iface = normalizeInterfaceName(rawIface);
-            const show = isAll || selected.includes(iface);
-            row.style.display = show ? "" : "none";
-        });
-
-        updateAllCheckboxState();
-        applyZebraStriping();
-    }
-
-    // Update "All" checkbox status
-    function updateAllCheckboxState() {
-        const allBoxes = Array.from(document.querySelectorAll("input[name='interface']"));
-        const checkedBoxes = allBoxes.filter(cb => cb.checked);
-        document.getElementById("interface-all").checked = (checkedBoxes.length === allBoxes.length);
-    }
-
-    // All toggle
-    document.getElementById("interface-all").addEventListener("change", function() {
-        const allBoxes = document.querySelectorAll("input[name='interface']");
-        allBoxes.forEach(cb => cb.checked = this.checked);
-        applyInterfaceFilter();
-    });
-
-    // Individual checkbox toggle
-    filterContainer.addEventListener("change", function(e) {
-        if (e.target.name === "interface") {
-            applyInterfaceFilter();
-        }
-    });
-
-    // Show more/less toggler
-    toggleLink.addEventListener("click", function(e) {
-        e.preventDefault();
-        expanded = !expanded;
-
-        checkboxElements.forEach((el, index) => {
-            if (index >= VISIBLE_COUNT) {
-                el.style.display = expanded ? "block" : "none";
-            }
-        });
-
-        toggleLink.textContent = expanded ? "Show less" : "Show more";
-    });
-
-    // Step 7: Initial filter apply
-    applyInterfaceFilter();
-});
-</script>
 
 
 
