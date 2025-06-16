@@ -858,11 +858,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const mapping = {
             name: 2,
             core_count: 3,
-            base_clock: 4,
-            boost_clock: 5,
-            microarch: 6,
-            rating: 7,
-            price: 8
+            color: 4,
+            rating: 5,
+            price: 6
         };
         return mapping[key];
     }
